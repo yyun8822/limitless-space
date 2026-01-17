@@ -1,53 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Product Detail</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <div class="logo">LIMITLESS SPACE</div>
-    <button class="menuBtn" onclick="toggleMenu()">☰</button>
+  <header class="header">
+    <div class="left">
+      <a href="index.html" class="back">← Back</a>
+      <div class="logo">LIMITLESS SPACE</div>
+    </div>
   </header>
 
-  <aside id="menu" class="menu">
-    <div class="menuHeader">
-      <h2>Categories</h2>
-      <button class="closeBtn" onclick="toggleMenu()">✕</button>
-    </div>
-    <input type="text" id="searchInput" placeholder="Search..." oninput="renderProducts()">
-    <div class="menuList">
-      <button onclick="setCategory('All')">All</button>
-      <button onclick="setCategory('T恤')">T恤</button>
-      <button onclick="setCategory('连帽衫')">连帽衫</button>
-      <button onclick="setCategory('裙子')">裙子</button>
-      <button onclick="setCategory('外套')">外套</button>
-      <button onclick="setCategory('短裤')">短裤</button>
-      <button onclick="setCategory('长裤')">长裤</button>
-    </div>
-  </aside>
-
-  <main>
-    <div id="detail" class="detail"></div>
+  <main class="detail-page">
+    <div id="detail"></div>
   </main>
 
-  <div class="cartBtn" onclick="toggleCart()">
-    🛒 <span id="cartCount">0</span>
-  </div>
-
-  <div id="cartModal" class="cartModal">
-    <div class="cartContent">
-      <div class="cartHeader">
-        <h2>Cart</h2>
-        <button class="closeBtn" onclick="toggleCart()">✕</button>
-      </div>
-      <div id="cartItems"></div>
-      <div id="cartTotal"></div>
-      <button id="checkoutBtn" onclick="checkout()">Checkout</button>
-    </div>
-  </div>
+  <footer class="footer">
+    <a href="https://wa.me/60173988114" target="_blank">WhatsApp</a>
+    <a href="https://instagram.com/limitless_space8" target="_blank">Instagram</a>
+  </footer>
 
   <script src="detail.js"></script>
 </body>
