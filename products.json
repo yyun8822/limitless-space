@@ -1,10 +1,10 @@
 [
   {
     "id": 1,
-    "name_en": "Classic T-Shirt",
-    "name_zh": "经典T恤",
-    "category": "T恤",
-    "price": 39,
+    "name_en": "Retro Letter Varsity Jacket",
+    "name_zh": "美式棒球外套",
+    "category": "外套",
+    "price": 99,
     "images": {
              : "<a href="https://ibb.co/HfzwY1qg"><img src="https://i.ibb.co/5g8pvtLc/0dcad8bc5bf341143b0b4dd14b35855f.jpg" alt="0dcad8bc5bf341143b0b4dd14b35855f" border="0"></a>,
       "Black": "https://via.placeholder.com/400x400.png?text=Black+T-Shirt",
