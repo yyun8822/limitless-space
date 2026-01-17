@@ -2,47 +2,41 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Limitless Space</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <div class="logo">LIMITLESS SPACE</div>
 
-  <div class="lang-switch">
-    <button onclick="changeLang('en')">EN</button>
-    <button onclick="changeLang('zh')">中文</button>
-  </div>
+  <!-- Header -->
+  <header class="header">
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+    <div class="logo">LIMITLESS SPACE</div>
+  </header>
 
-  <div class="hamburger" onclick="toggleMenu()">☰</div>
-
-  <div id="menu" class="menu">
-    <div class="menu-title" data-en="Categories" data-zh="分类">Categories</div>
-
-    <button onclick="setCategory('All')" class="active" data-en="All" data-zh="全部">All</button>
+  <!-- Hamburger Menu -->
+  <aside id="menu" class="menu">
+    <button onclick="setCategory('All')" data-en="All" data-zh="全部">All</button>
     <button onclick="setCategory('T恤')" data-en="T-Shirt" data-zh="T恤">T恤</button>
     <button onclick="setCategory('连帽衫')" data-en="Hoodie" data-zh="连帽衫">连帽衫</button>
-    <button onclick="setCategory('裙子')" data-en="Dress" data-zh="裙子">裙子</button>
-    <button onclick="setCategory('外套')" data-en="Jacket" data-zh="外套">外套</button>
-    <button onclick="setCategory('短裤')" data-en="Shorts" data-zh="短裤">短裤</button>
-    <button onclick="setCategory('长裤')" data-en="Pants" data-zh="长裤">长裤</button>
+    <button onclick="setCategory('裙子')" data-en="Skirt" data-zh="裙子">裙子</button>
 
-    <input id="searchInput" type="text" placeholder="Search" oninput="applyFilter()">
-  </div>
+    <input
+      id="searchInput"
+      type="text"
+      placeholder="Search"
+      oninput="renderProducts()"
+    />
+  </aside>
 
-  <div id="productList" class="product-list"></div>
+  <!-- Product List -->
+  <main class="product-list" id="productList"></main>
 
-  <div class="cart">
-    <h2 data-en="Cart" data-zh="购物车">Cart</h2>
-    <div id="cartItems"></div>
-    <div id="cartTotal"></div>
-    <button id="checkoutBtn" onclick="checkout()">Checkout</button>
-  </div>
-
-  <div class="bottom-social">
+  <!-- Bottom Social -->
+  <footer class="bottom-social">
     <a href="https://wa.me/60173988114" target="_blank">WhatsApp</a>
     <a href="https://instagram.com/limitless_space8" target="_blank">Instagram</a>
-  </div>
+  </footer>
 
   <script src="main.js"></script>
 </body>
