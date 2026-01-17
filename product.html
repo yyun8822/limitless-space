@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product - Limitless Space</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="logo">Limitless Space</div>
+    <div class="nav">
+      <a href="index.html">Home</a>
+      <a href="product.html">Products</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="lang">
+      <button onclick="changeLang('en')">EN</button>
+      <button onclick="changeLang('zh')">中文</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="products">
+      <h2 data-en="Products" data-zh="产品">Products</h2>
+
+      <div class="filter">
+        <input id="searchInput" type="text" placeholder="Search products..." oninput="applyFilter()" />
+        <div class="categories">
+          <button onclick="setCategory('All')" class="active">All</button>
+          <button onclick="setCategory('T恤')">T恤</button>
+          <button onclick="setCategory('连帽衫')">连帽衫</button>
+          <button onclick="setCategory('裙子')">裙子</button>
+          <button onclick="setCategory('外套')">外套</button>
+          <button onclick="setCategory('短裤')">短裤</button>
+          <button onclick="setCategory('长裤')">长裤</button>
+        </div>
+      </div>
+
+      <div id="productList" class="grid"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p data-en="© 2026 Limitless Space. Made in Malaysia." data-zh="© 2026 Limitless Space。马来西亚制造。">
+      © 2026 Limitless Space. Made in Malaysia.
+    </p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
