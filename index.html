@@ -1,53 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Limitless Space</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header class="header">
-  <div class="left">
+  <!-- Header -->
+  <header class="header">
     <div class="hamburger" onclick="toggleMenu()">☰</div>
+    <div class="logo">LIMITLESS SPACE</div>
+    <div class="cart-icon" onclick="toggleCart()">🛒<span id="cartCount">0</span></div>
+  </header>
+
+  <!-- Menu -->
+  <div class="menu" id="menu">
+    <input id="searchInput" placeholder="Search" oninput="renderProducts()">
+    <button onclick="setCategory('All')" class="active">All</button>
+    <button onclick="setCategory('T-Shirt')">T-Shirt</button>
+    <button onclick="setCategory('Hoodie')">Hoodie</button>
+    <button onclick="setCategory('Dress')">Dress</button>
+    <button onclick="setCategory('Jacket')">Jacket</button>
+    <button onclick="setCategory('Shorts')">Shorts</button>
+    <button onclick="setCategory('Pants')">Pants</button>
   </div>
-  <div class="logo">LIMITLESS SPACE</div>
-  <div class="right">
-    <button onclick="changeLang('en')">EN</button>
-    <button onclick="changeLang('zh')">中文</button>
+
+  <!-- Product Grid -->
+  <main class="grid" id="productList"></main>
+
+  <!-- Cart -->
+  <div class="cart" id="cart" style="display:none;">
+    <div class="cart-header">
+      <h3>Cart</h3>
+      <button onclick="toggleCart()">Close</button>
+    </div>
+    <div id="cartItems"></div>
+    <div id="cartTotal"></div>
+    <button id="checkoutBtn" onclick="checkout()" style="display:none;">Checkout</button>
   </div>
-</header>
 
-<!-- 汉堡菜单 -->
-<div id="menu" class="menu">
-  <input id="searchInput" oninput="applyFilter()" placeholder="Search..." />
-  <button onclick="setCategory('All')">All</button>
-  <button onclick="setCategory('T恤')">T恤</button>
-  <button onclick="setCategory('连帽衫')">连帽衫</button>
-  <button onclick="setCategory('裙子')">裙子</button>
-  <button onclick="setCategory('外套')">外套</button>
-  <button onclick="setCategory('短裤')">短裤</button>
-  <button onclick="setCategory('长裤')">长裤</button>
-</div>
+  <!-- Footer -->
+  <footer class="footer">
+    <a href="https://wa.me/60173988114" target="_blank">WhatsApp</a>
+    <a href="https://instagram.com" target="_blank">Instagram</a>
+  </footer>
 
-<!-- 商品列表 -->
-<main id="productList" class="grid"></main>
-
-<!-- 购物车 -->
-<div class="cart">
-  <h3>Cart</h3>
-  <div id="cartItems"></div>
-  <div id="cartTotal"></div>
-  <button id="checkoutBtn" onclick="checkout()">Checkout</button>
-</div>
-
-<!-- 底部 WhatsApp + Instagram -->
-<footer class="footer">
-  <a href="https://wa.me/60173988114" target="_blank">WhatsApp</a>
-  <a href="https://instagram.com/limitless_space8" target="_blank">Instagram</a>
-</footer>
-
-<script src="main.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>
