@@ -7,33 +7,20 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header class="topbar">
-    <div class="brand">LIMITLESS SPACE</div>
-    <div class="right">
-      <button class="backBtn" onclick="history.back()">← Back</button>
-      <button class="cartBtn" onclick="toggleCart()">🛒 <span id="cartCount">0</span></button>
+  <header class="header">
+    <div class="left">
+      <a href="index.html" class="back">← Back</a>
+      <div class="logo">LIMITLESS SPACE</div>
     </div>
   </header>
 
-  <main class="detailMain">
-    <section id="detail" class="detail"></section>
+  <main class="detail-page">
+    <div id="detail"></div>
   </main>
-
-  <div id="cart" class="cart">
-    <div class="cartHeader">
-      <div>Shopping Cart</div>
-      <button onclick="toggleCart()">✕</button>
-    </div>
-    <div id="cartItems" class="cartItems"></div>
-    <div id="cartFooter" class="cartFooter">
-      <div id="cartTotal"></div>
-      <button id="checkoutBtn" onclick="checkout()">Checkout</button>
-    </div>
-  </div>
 
   <footer class="footer">
     <a href="https://wa.me/60173988114" target="_blank">WhatsApp</a>
-    <a href="https://instagram.com" target="_blank">Instagram</a>
+    <a href="https://instagram.com/limitless_space8" target="_blank">Instagram</a>
   </footer>
 
   <script src="detail.js"></script>
