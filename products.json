@@ -15,17 +15,3 @@
     "colors": ["Black", "White", "Grey"],
     "sizes": ["S", "M", "L", "XL"]
   },
-  {
-    "id": 2,
-    "name_en": "Cozy Hoodie",
-    "name_zh": "连帽衫",
-    "category": "连帽衫",
-    "price": 79,
-    "images": {
-      "Black": "https://via.placeholder.com/400x400.png?text=Black+Hoodie",
-      "Grey": "https://via.placeholder.com/400x400.png?text=Grey+Hoodie"
-    },
-    "colors": ["Black", "Grey"],
-    "sizes": ["M", "L", "XL"]
-  }
-]
