@@ -111,7 +111,7 @@ function removeItem(index) {
 }
 
 function checkout() {
-  alert("Checkout feature not implemented yet");
+  alert("Checkout not implemented yet.");
 }
 
 loadProducts();
