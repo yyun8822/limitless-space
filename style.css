@@ -15,22 +15,39 @@ body {
   position: relative;
 }
 
-.left-menu {
-  position: relative;
-}
-
 .menu-btn {
-  font-size: 22px;
+  font-size: 26px;
   background: none;
   border: none;
   cursor: pointer;
 }
 
+.logo {
+  font-weight: bold;
+  font-size: 34px;
+  text-align: center;
+  flex: 1;
+}
+
+.lang {
+  display: flex;
+}
+
+.lang button {
+  margin-left: 8px;
+  padding: 6px 10px;
+  border: none;
+  background: #333;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 .menu {
   position: absolute;
-  top: 40px;
-  left: 0;
-  width: 240px;
+  top: 60px;
+  left: 15px;
+  width: 260px;
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 10px;
@@ -43,9 +60,13 @@ body {
   margin: 0 0 10px 0;
 }
 
+.cat-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .menu button {
-  width: 100%;
-  margin: 5px 0;
   padding: 8px;
   border: none;
   background: #ddd;
@@ -66,19 +87,11 @@ body {
   border-radius: 8px;
 }
 
-.logo {
-  font-weight: bold;
-  font-size: 22px;
-}
-
-.lang button {
-  margin-left: 8px;
-  padding: 6px 10px;
-  border: none;
+.menu-close {
+  margin-top: 10px;
+  width: 100%;
   background: #333;
   color: #fff;
-  border-radius: 5px;
-  cursor: pointer;
 }
 
 .hero {
@@ -118,7 +131,7 @@ body {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
 }
 
@@ -134,17 +147,6 @@ body {
   width: 100%;
   height: 250px;
   object-fit: cover;
-}
-
-.card .tag {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background: #ff5a5a;
-  color: #fff;
-  padding: 5px 8px;
-  border-radius: 6px;
-  font-size: 12px;
 }
 
 .card .info {
@@ -169,6 +171,38 @@ body {
   font-weight: bold;
 }
 
+.detail {
+  padding: 30px 20px;
+  display: flex;
+  gap: 20px;
+}
+
+.detail-img img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 10px;
+}
+
+.detail-info {
+  flex: 1;
+}
+
+.options {
+  margin-top: 15px;
+}
+
+.options label {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.options select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
 .cart {
   padding: 30px 20px;
   background: #fff;
@@ -186,6 +220,20 @@ body {
   border-bottom: 1px solid #eee;
 }
 
+.cart .qty {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cart button {
+  padding: 4px 8px;
+  border: none;
+  background: #333;
+  color: #fff;
+  cursor: pointer;
+}
+
 .checkout {
   width: 100%;
   padding: 12px;
@@ -195,13 +243,6 @@ body {
   cursor: pointer;
   margin-top: 10px;
   font-weight: bold;
-}
-
-.contact {
-  padding: 30px 20px;
-  text-align: center;
-  background: #fff;
-  margin-top: 20px;
 }
 
 footer {
