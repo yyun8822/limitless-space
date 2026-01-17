@@ -1,59 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Limitless Space</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <header class="top">
+    <div class="left-menu">
+      <button class="menu-btn" onclick="toggleMenu()">☰</button>
 
-<header>
-  <span onclick="toggleMenu()">☰</span>
-  <h1>LIMITLESS SPACE</h1>
-  <button onclick="toggleLang()">EN / 中</button>
-</header>
+      <div class="menu" id="menu">
+        <h3 data-en="Categories" data-zh="分类">Categories</h3>
 
-<nav id="menu">
-  <input placeholder="Search" oninput="renderProducts()">
-  <ul>
-    <li onclick="filterCat('all')">All</li>
-    <li onclick="filterCat('T恤')">T恤</li>
-    <li onclick="filterCat('连帽衫')">连帽衫</li>
-    <li onclick="filterCat('裙子')">裙子</li>
-  </ul>
-</nav>
+        <div class="cat-list">
+          <button onclick="setCategory('All')" class="active">All</button>
+          <button onclick="setCategory('T恤')">T恤</button>
+          <button onclick="setCategory('连帽衫')">连帽衫</button>
+          <button onclick="setCategory('裙子')">裙子</button>
+          <button onclick="setCategory('外套')">外套</button>
+          <button onclick="setCategory('短裤')">短裤</button>
+          <button onclick="setCategory('长裤')">长裤</button>
+        </div>
 
-<section id="banner">Fashion for every space</section>
+        <h3 data-en="Search" data-zh="搜索">Search</h3>
+        <input id="searchInput" type="text" placeholder="Search..." oninput="applyFilter()" />
 
-<h2>New Arrivals</h2>
-<div id="newList" class="grid"></div>
+        <button class="menu-close" onclick="toggleMenu()">Close</button>
+      </div>
+    </div>
 
-<h2>All Products</h2>
-<div id="productList" class="grid"></div>
+    <div class="logo">Limitless Space</div>
 
-<!-- 商品详情 -->
-<div id="modal" class="modal">
-  <div class="box">
-    <span onclick="closeModal()">×</span>
-    <img id="detailImg">
-    <div id="colorBtns"></div>
-    <select id="sizeSelect"></select>
-    <button onclick="addToCart()">Add to Cart</button>
-  </div>
-</div>
+    <div class="lang">
+      <button onclick="changeLang('en')">EN</button>
+      <button onclick="changeLang('zh')">中文</button>
+    </div>
+  </header>
 
-<!-- 购物车 -->
-<div id="cartBox" class="cart">
-  <h3>Cart</h3>
-  <div id="cartItems"></div>
-  <button onclick="checkout()">WhatsApp 下单</button>
-</div>
+  <main>
+    <section class="products" id="products">
+      <h2 data-en="Products" data-zh="产品">Products</h2>
+      <div id="productList" class="grid"></div>
+    </section>
 
-<footer>
-  <a href="https://wa.me/60173988114">WhatsApp</a>
-  <a href="https://instagram.com/limitless_space8">Instagram</a>
-</footer>
+    <section class="hero">
+      <h1 data-en="Fashion for Every Space" data-zh="适合每个空间的时尚">Fashion for Every Space</h1>
+      <p data-en="Malaysia online clothing store. Add products soon."
+         data-zh="马来西亚线上服装店。即将上架产品。">
+        Malaysia online clothing store. Add products soon.
+      </p>
+    </section>
 
-<script src="script.js"></script>
+    <section class="cart" id="cart">
+      <h2 data-en="Cart" data-zh="购物车">Cart</h2>
+      <div id="cartItems"></div>
+      <div id="cartTotal"></div>
+      <button id="checkoutBtn" onclick="checkout()" class="checkout" style="display:none;">
+        <span data-en="Checkout via WhatsApp" data-zh="通过 WhatsApp 结账">Checkout via WhatsApp</span>
+      </button>
+    </section>
+
+    <section class="contact" id="contact">
+      <h2 data-en="Contact Us" data-zh="联系我们">Contact Us</h2>
+      <p data-en="Send us a message to order or ask questions." data-zh="发送消息下单或咨询。">
+        Send us a message to order or ask questions.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p data-en="© 2026 Limitless Space. Made in Malaysia." data-zh="© 2026 Limitless Space。马来西亚制造。">
+      © 2026 Limitless Space. Made in Malaysia.
+    </p>
+
+    <div class="bottom-links">
+      <a href="https://wa.me/60173988114" target="_blank">WhatsApp</a>
+      <a href="https://instagram.com/limitless_space8" target="_blank">Instagram</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
