@@ -10,11 +10,10 @@ body {
   position: sticky;
   top: 0;
   background: #fff;
-  padding: 14px 16px;
   display: flex;
   align-items: center;
+  padding: 14px 16px;
   border-bottom: 1px solid #eee;
-  z-index: 10;
 }
 
 .hamburger {
@@ -26,8 +25,8 @@ body {
   flex: 1;
   text-align: center;
   font-size: 20px;
-  font-weight: 600;
   letter-spacing: 2px;
+  font-weight: 600;
 }
 
 /* Menu */
@@ -40,19 +39,17 @@ body {
   background: #fff;
   padding: 20px;
   display: none;
-  box-shadow: 2px 0 10px rgba(0,0,0,0.08);
-  z-index: 20;
+  box-shadow: 2px 0 10px rgba(0,0,0,.08);
 }
 
 .menu button {
   display: block;
   width: 100%;
-  margin-bottom: 10px;
-  background: none;
+  padding: 8px 0;
   border: none;
+  background: none;
   text-align: left;
   font-size: 15px;
-  cursor: pointer;
 }
 
 .menu input {
@@ -65,50 +62,52 @@ body {
 .product-list {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-  padding: 16px;
+  gap: 24px;
+  padding: 20px;
 }
 
 .card {
-  border: 1px solid #eee;
-  padding: 10px;
   background: #fff;
+}
+
+.card .img {
+  background: #f5f5f5;
+  padding: 24px;
 }
 
 .card img {
   width: 100%;
-  aspect-ratio: 1/1;
-  object-fit: cover;
+  display: block;
 }
 
-.card h3 {
+.card .info {
+  padding: 10px 4px;
+}
+
+.card .name {
   font-size: 14px;
-  margin: 8px 0 4px;
-  font-weight: 500;
+  margin-bottom: 6px;
 }
 
-.card p {
-  font-size: 13px;
-  margin: 0 0 8px;
-}
-
-.card .actions {
-  display: flex;
-  gap: 6px;
+.card .price {
+  font-size: 15px;
+  font-weight: 600;
 }
 
 .card button {
-  flex: 1;
-  padding: 6px;
-  font-size: 12px;
-  cursor: pointer;
+  margin-top: 10px;
+  width: 100%;
+  padding: 8px;
+  background: transparent;
+  border: 1px solid #ddd;
+  font-size: 13px;
 }
 
 /* Bottom */
-.bottom-social {
+.bottom {
+  border-top: 1px solid #eee;
+  padding: 20px;
   display: flex;
   justify-content: center;
   gap: 20px;
-  padding: 20px;
-  border-top: 1px solid #eee;
 }
