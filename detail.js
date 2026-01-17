@@ -3,7 +3,6 @@ let cart = [];
 let selectedProduct = null;
 let selectedColor = "";
 let qty = 1;
-let imgIndex = 0;
 
 function loadProducts() {
   fetch("products.json")
@@ -27,8 +26,6 @@ function loadDetail() {
   if (!selectedProduct) return;
 
   selectedColor = selectedProduct.colors[0];
-  imgIndex = 0;
-
   renderDetail();
 }
 
@@ -41,18 +38,20 @@ function renderDetail() {
       <p>RM ${selectedProduct.price}</p>
 
       <div class="color-row">
-        ${selectedProduct.colors.map(c => `<button class="color-btn" onclick="changeColor('${c}')">${c}</button>`).join("")}
+        ${selectedProduct.colors.map(c => `
+          <button class="color-btn" style="background:${c.toLowerCase()}" onclick="changeColor('${c}')"></button>
+        `).join("")}
+      </div>
+
+      <div class="slider-row">
+        <button class="nav-btn" onclick="prevColor()">←</button>
+        <button class="nav-btn" onclick="nextColor()">→</button>
       </div>
 
       <div class="qty-row">
         <button onclick="changeQty(-1)">-</button>
         <span id="qtyText">${qty}</span>
         <button onclick="changeQty(1)">+</button>
-      </div>
-
-      <div class="slider-row">
-        <button onclick="prevImg()">←</button>
-        <button onclick="nextImg()">→</button>
       </div>
 
       <button class="add-btn" onclick="addToCart()">Add to Cart</button>
@@ -64,13 +63,26 @@ function renderDetail() {
 
 function changeColor(color) {
   selectedColor = color;
-  imgIndex = 0;
   updateImage();
 }
 
 function updateImage() {
   const img = document.getElementById("detailImg");
   img.src = selectedProduct.images[selectedColor];
+}
+
+function prevColor() {
+  let idx = selectedProduct.colors.indexOf(selectedColor);
+  idx = (idx - 1 + selectedProduct.colors.length) % selectedProduct.colors.length;
+  selectedColor = selectedProduct.colors[idx];
+  updateImage();
+}
+
+function nextColor() {
+  let idx = selectedProduct.colors.indexOf(selectedColor);
+  idx = (idx + 1) % selectedProduct.colors.length;
+  selectedColor = selectedProduct.colors[idx];
+  updateImage();
 }
 
 function changeQty(delta) {
@@ -92,19 +104,6 @@ function addToCart() {
   });
 
   localStorage.setItem("cart", JSON.stringify(cart));
-  alert("Added to cart!");
+  showToast(); // 显示小提示
 }
-
-function prevImg() {
-  imgIndex = (imgIndex - 1 + selectedProduct.colors.length) % selectedProduct.colors.length;
-  selectedColor = selectedProduct.colors[imgIndex];
-  updateImage();
-}
-
-function nextImg() {
-  imgIndex = (imgIndex + 1) % selectedProduct.colors.length;
-  selectedColor = selectedProduct.colors[imgIndex];
-  updateImage();
-}
-
 loadProducts();
