@@ -1,26 +1,20 @@
 let products = [];
-let cart = [];
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let currentCategory = "All";
 
-function loadProducts() {
-  fetch("products.json")
-    .then(res => res.json())
-    .then(data => {
-      products = data;
-      loadCart();
-      renderProducts();
-    });
+async function loadProducts() {
+  const response = await fetch("products.json");
+  products = await response.json();
+  renderProducts();
+  updateCartCount();
 }
 
 function toggleMenu() {
-  document.getElementById("menu").classList.toggle("show");
+  document.getElementById("menu").classList.toggle("open");
 }
 
 function setCategory(cat) {
   currentCategory = cat;
-  document.querySelectorAll(".cat-btn").forEach(btn => {
-    btn.classList.toggle("active", btn.innerText === cat);
-  });
   renderProducts();
 }
 
@@ -31,11 +25,9 @@ function renderProducts() {
   const searchText = document.getElementById("searchInput").value.toLowerCase();
 
   const filtered = products.filter(p => {
-    const matchCat = currentCategory === "All" ? true : p.category === currentCategory;
-    const matchSearch =
-      p.name_en.toLowerCase().includes(searchText) ||
-      p.name_zh.includes(searchText);
-    return matchCat && matchSearch;
+    const matchCategory = currentCategory === "All" ? true : p.category === currentCategory;
+    const matchSearch = p.name_en.toLowerCase().includes(searchText) || p.name_zh.includes(searchText);
+    return matchCategory && matchSearch;
   });
 
   filtered.forEach(p => {
@@ -43,129 +35,83 @@ function renderProducts() {
     card.className = "card";
 
     card.innerHTML = `
-      <img src="${p.images[p.colors[0]]}" alt="${p.name_en}">
+      <img src="${p.images[p.colors[0]]}" alt="${p.name_en}" />
       <div class="info">
         <h3>${p.name_en}</h3>
         <p>RM ${p.price}</p>
-        <div class="btn-row">
-          <button class="view-btn" onclick="viewDetail(${p.id})">View Detail</button>
-          <button class="add-btn" onclick="addToCart(${p.id})">Add to Cart</button>
-        </div>
+        <button onclick="viewDetail(${p.id})">View Details</button>
       </div>
     `;
+
     list.appendChild(card);
   });
-
-  updateCartCount();
 }
 
 function viewDetail(id) {
   window.location.href = `product-detail.html?id=${id}`;
 }
 
-function addToCart(id) {
-  const product = products.find(p => p.id === id);
-  const item = cart.find(c => c.id === id && c.color === product.colors[0] && c.size === product.sizes[0]);
-
-  if (item) item.qty++;
-  else cart.push({
-    id,
+function addToCart(productId) {
+  const product = products.find(p => p.id === productId);
+  cart.push({
+    id: product.id,
     name_en: product.name_en,
     price: product.price,
-    color: product.colors[0],
-    size: product.sizes[0],
     qty: 1
   });
-
-  saveCart();
-  renderCart();
+  localStorage.setItem("cart", JSON.stringify(cart));
   updateCartCount();
 }
 
+function updateCartCount() {
+  document.getElementById("cartCount").innerText = cart.length;
+}
+
 function toggleCart() {
-  document.getElementById("cart").classList.toggle("show");
+  document.getElementById("cartModal").classList.toggle("open");
   renderCart();
 }
 
 function renderCart() {
   const cartItems = document.getElementById("cartItems");
-  const cartTotal = document.getElementById("cartTotal");
-  const checkoutBtn = document.getElementById("checkoutBtn");
-
   cartItems.innerHTML = "";
 
-  if (cart.length === 0) {
-    cartItems.innerHTML = "<p>Cart is empty</p>";
-    cartTotal.innerHTML = "";
-    checkoutBtn.style.display = "none";
-    return;
-  }
-
-  let total = 0;
-  cart.forEach((item, idx) => {
-    total += item.price * item.qty;
+  cart.forEach((item, index) => {
     const div = document.createElement("div");
     div.className = "item";
     div.innerHTML = `
-      <div>
-        <div>${item.name_en}</div>
-        <div>${item.color} / ${item.size}</div>
-      </div>
-      <div>
-        <div>RM ${item.price} x ${item.qty}</div>
-        <div>
-          <button onclick="changeQty(${idx}, -1)">-</button>
-          <button onclick="changeQty(${idx}, 1)">+</button>
-          <button onclick="removeItem(${idx})">Delete</button>
-        </div>
-      </div>
+      <span>${item.name_en}</span>
+      <span>RM ${item.price} x ${item.qty}</span>
+      <span>
+        <button onclick="changeQty(${index}, -1)">-</button>
+        <button onclick="changeQty(${index}, 1)">+</button>
+        <button onclick="removeItem(${index})">Delete</button>
+      </span>
     `;
     cartItems.appendChild(div);
   });
 
-  cartTotal.innerHTML = `<p>Total: RM ${total}</p>`;
-  checkoutBtn.style.display = "block";
+  const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+  document.getElementById("cartTotal").innerText = `Total: RM ${total}`;
 }
 
-function changeQty(idx, delta) {
-  cart[idx].qty += delta;
-  if (cart[idx].qty <= 0) cart[idx].qty = 1;
-  saveCart();
+function changeQty(index, delta) {
+  cart[index].qty += delta;
+  if (cart[index].qty < 1) cart[index].qty = 1;
+  localStorage.setItem("cart", JSON.stringify(cart));
   renderCart();
   updateCartCount();
 }
 
-function removeItem(idx) {
-  cart.splice(idx, 1);
-  saveCart();
+function removeItem(index) {
+  cart.splice(index, 1);
+  localStorage.setItem("cart", JSON.stringify(cart));
   renderCart();
   updateCartCount();
 }
 
 function checkout() {
-  let msg = "Order details:%0A";
-  let total = 0;
-  cart.forEach((item, i) => {
-    msg += `${i+1}. ${item.name_en} (${item.color}/${item.size}) x ${item.qty} - RM ${item.price}%0A`;
-    total += item.price * item.qty;
-  });
-  msg += `Total: RM ${total}%0A`;
-  window.open(`https://wa.me/60173988114?text=${msg}`, "_blank");
-}
-
-function saveCart() {
-  localStorage.setItem("cart", JSON.stringify(cart));
-}
-
-function loadCart() {
-  const stored = localStorage.getItem("cart");
-  if (stored) cart = JSON.parse(stored);
-  updateCartCount();
-}
-
-function updateCartCount() {
-  const count = cart.reduce((sum, item) => sum + item.qty, 0);
-  document.getElementById("cartCount").innerText = count;
+  alert("Checkout feature not implemented yet");
 }
 
 loadProducts();
