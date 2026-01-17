@@ -21,9 +21,8 @@ body {
 }
 
 .logo {
-  font-weight: 800;
-  letter-spacing: 6px;
-  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 5px;
 }
 
 .hamburger {
@@ -31,39 +30,25 @@ body {
   cursor: pointer;
 }
 
+.back {
+  text-decoration: none;
+  color: #111;
+  font-size: 16px;
+  margin-right: 12px;
+}
+
 .cart-icon {
   cursor: pointer;
   font-size: 18px;
-  position: relative;
-}
-
-.cart-badge {
-  position: absolute;
-  top: -10px;
-  right: -12px;
-  background: #111;
-  color: #fff;
-  padding: 2px 7px;
-  border-radius: 50%;
-  font-size: 12px;
 }
 
 .menu {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 50vw;
-  height: 100vh;
-  background: #fff;
+  display: none;
   padding: 14px 18px;
-  transform: translateX(-100%);
-  transition: transform 0.3s ease;
-  z-index: 999;
-  box-shadow: 4px 0 20px rgba(0,0,0,0.1);
 }
 
 .menu.show {
-  transform: translateX(0);
+  display: block;
 }
 
 .menu input {
@@ -71,7 +56,7 @@ body {
   padding: 10px;
   margin-bottom: 12px;
   border: 1px solid #ddd;
-  border-radius: 10px;
+  border-radius: 6px;
 }
 
 .cat-btn {
@@ -83,17 +68,10 @@ body {
   text-align: left;
   font-size: 16px;
   cursor: pointer;
-  border-radius: 8px;
-  transition: background 0.2s;
-}
-
-.cat-btn:hover {
-  background: #f5f5f5;
 }
 
 .cat-btn.active {
   font-weight: 700;
-  background: #f0f0f0;
 }
 
 .grid {
@@ -105,15 +83,12 @@ body {
 
 .card {
   cursor: pointer;
-  padding: 8px;
 }
 
 .card img {
   width: 100%;
   height: 280px;
   object-fit: contain;
-  border-radius: 14px;
-  background: #fafafa;
 }
 
 .card .info {
@@ -127,20 +102,40 @@ body {
 }
 
 .card .info p {
-  margin: 0;
-  color: #555;
+  margin: 0 0 8px;
+}
+
+.card .btn-row {
+  display: flex;
+  gap: 10px;
+}
+
+.add-btn {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #111;
+  background: transparent;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.view-btn {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #111;
+  background: transparent;
+  cursor: pointer;
+  font-weight: 600;
 }
 
 .cart {
   position: fixed;
   right: 12px;
   top: 70px;
-  width: 320px;
+  width: 280px;
   background: #fff;
   padding: 12px;
   display: none;
-  border-radius: 14px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
 }
 
 .cart.show {
@@ -155,47 +150,26 @@ body {
   border-bottom: 1px solid #eee;
 }
 
-.cart-title {
-  font-weight: 700;
-}
-
-.close-btn {
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  font-size: 18px;
-}
-
 .cart .item {
   display: flex;
   justify-content: space-between;
   margin: 10px 0;
-  padding: 8px 0;
-  border-bottom: 1px solid #eee;
 }
 
 .cart .item button {
   border: none;
   background: transparent;
   cursor: pointer;
-  font-size: 14px;
-  margin: 0 4px;
 }
 
 .checkout {
   width: 100%;
   padding: 12px;
   border: 1px solid #111;
-  background: #111;
-  color: #fff;
+  background: transparent;
   font-weight: 700;
   cursor: pointer;
   margin-top: 10px;
-  border-radius: 10px;
-}
-
-.checkout:hover {
-  background: #333;
 }
 
 .footer {
@@ -206,37 +180,53 @@ body {
   border-top: 1px solid #eee;
 }
 
-.footer-btn {
+.footer a {
   text-decoration: none;
   color: #111;
-  padding: 10px 16px;
-  border: 1px solid #111;
-  border-radius: 12px;
-  font-weight: 700;
-  transition: background 0.2s, color 0.2s;
 }
 
-.footer-btn:hover {
-  background: #111;
-  color: #fff;
+.detail-page {
+  padding: 18px;
 }
 
-.miniToast {
-  position: fixed;
-  right: 18px;
-  bottom: 18px;
-  padding: 8px 12px;
-  background: #111;
-  color: #fff;
-  border-radius: 12px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  font-size: 12px;
+.detail-img {
+  width: 100%;
+  height: 420px;
+  object-fit: contain;
+}
+
+.detail-info {
+  padding-top: 12px;
+}
+
+.color-row {
   display: flex;
   gap: 8px;
+  margin: 12px 0;
+}
+
+.color-btn {
+  padding: 8px 10px;
+  border: 1px solid #111;
+  background: transparent;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.qty-row {
+  display: flex;
+  gap: 10px;
+  margin: 12px 0;
   align-items: center;
 }
 
-.miniToast.show {
-  opacity: 1;
+.qty-row button {
+  padding: 8px 12px;
+  border: 1px solid #111;
+  background: transparent;
+  cursor: pointer;
+}
+
+.qty-row span {
+  font-weight: 700;
 }
