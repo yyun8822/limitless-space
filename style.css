@@ -239,6 +239,15 @@ body {
   border-bottom: 1px solid #eee;
 }
 
+.cart .item button {
+  padding: 6px 8px;
+  margin-left: 6px;
+  border: none;
+  background: #333;
+  color: #fff;
+  cursor: pointer;
+}
+
 .checkout {
   width: 100%;
   padding: 12px;
