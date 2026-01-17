@@ -1,17 +1,29 @@
 [
   {
     "id": 1,
-    "name_en": "Retro Letter Varsity Jacket",
-    "name_zh": "美式棒球外套",
-    "category": "外套",
-    "price": 99,
+    "name_en": "Classic T-Shirt",
+    "name_zh": "经典T恤",
+    "category": "T恤",
+    "price": 39,
     "images": {
-  "default": "https://raw.githubusercontent.com/yyun8822/limitless-space/main/images/0dcad8bc5bf341143b0b4dd14b35855f.jpeg"
-},
       "Black": "https://via.placeholder.com/400x400.png?text=Black+T-Shirt",
       "White": "https://via.placeholder.com/400x400.png?text=White+T-Shirt",
       "Grey": "https://via.placeholder.com/400x400.png?text=Grey+T-Shirt"
     },
     "colors": ["Black", "White", "Grey"],
     "sizes": ["S", "M", "L", "XL"]
-  
+  },
+  {
+    "id": 2,
+    "name_en": "Cozy Hoodie",
+    "name_zh": "连帽衫",
+    "category": "连帽衫",
+    "price": 79,
+    "images": {
+      "Black": "https://via.placeholder.com/400x400.png?text=Black+Hoodie",
+      "Grey": "https://via.placeholder.com/400x400.png?text=Grey+Hoodie"
+    },
+    "colors": ["Black", "Grey"],
+    "sizes": ["M", "L", "XL"]
+  }
+]
