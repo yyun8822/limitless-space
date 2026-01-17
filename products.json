@@ -13,10 +13,24 @@
     },
     "colors": ["Black", "White", "Grey"],
     "sizes": ["S", "M", "L", "XL"]
-  }
-]
-{
-    "id": 1,
+  },
+  {
+    "id": 2,
+    "name_en": "Classic T-Shirt",
+    "name_zh": "经典T恤",
+    "category": "T恤",
+    "price": 49,
+    "images": {
+      "default": "https://raw.githubusercontent.com/yyun8822/limitless-space/main/images/0dcad8bc5bf341143b0b4dd14b35855f.jpeg",
+      "Black": "https://raw.githubusercontent.com/yyun8822/limitless-space/main/images/tee-black.jpeg",
+      "White": "https://raw.githubusercontent.com/yyun8822/limitless-space/main/images/tee-white.jpeg",
+      "Grey": "https://raw.githubusercontent.com/yyun8822/limitless-space/main/images/tee-grey.jpeg"
+    },
+    "colors": ["Black", "White", "Grey"],
+    "sizes": ["S", "M", "L", "XL"]
+  },
+  {
+    "id": 3,
     "name_en": "Classic T-Shirt",
     "name_zh": "经典T恤",
     "category": "T恤",
