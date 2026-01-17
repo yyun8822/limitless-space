@@ -7,6 +7,7 @@ body {
   color: #111;
 }
 
+/* header */
 .header {
   display: flex;
   justify-content: space-between;
@@ -37,14 +38,37 @@ body {
   margin-right: 12px;
 }
 
+/* 购物车图标固定 */
 .cart-icon {
   cursor: pointer;
   font-size: 18px;
+  position: fixed;
+  right: 18px;
+  top: 16px;
+  background: #fff;
+  padding: 8px 10px;
+  border-radius: 999px;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.12);
+  z-index: 999;
 }
 
+.cart-icon span {
+  font-weight: 700;
+  margin-left: 6px;
+}
+
+/* 汉堡菜单覆盖 40% */
 .menu {
-  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 40vw;
+  height: 100vh;
+  background: #fff;
   padding: 14px 18px;
+  display: none;
+  z-index: 900;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.15);
 }
 
 .menu.show {
@@ -74,6 +98,7 @@ body {
   font-weight: 700;
 }
 
+/* 首页商品两列 */
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -83,16 +108,23 @@ body {
 
 .card {
   cursor: pointer;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.06);
 }
 
 .card img {
   width: 100%;
-  height: 280px;
+  height: 0;
+  padding-top: 100%; /* 正方形 */
   object-fit: contain;
+  display: block;
+  background: #fff;
 }
 
 .card .info {
-  padding: 10px 0;
+  padding: 10px 12px;
 }
 
 .card .info h3 {
@@ -103,6 +135,7 @@ body {
 
 .card .info p {
   margin: 0 0 8px;
+  font-weight: 700;
 }
 
 .card .btn-row {
@@ -128,14 +161,17 @@ body {
   font-weight: 600;
 }
 
+/* 购物车弹窗 */
 .cart {
   position: fixed;
   right: 12px;
   top: 70px;
-  width: 280px;
+  width: 320px;
   background: #fff;
   padding: 12px;
   display: none;
+  z-index: 999;
+  box-shadow: 0 1px 12px rgba(0,0,0,0.18);
 }
 
 .cart.show {
@@ -147,7 +183,6 @@ body {
   justify-content: space-between;
   align-items: center;
   padding-bottom: 10px;
-  border-bottom: 1px solid #eee;
 }
 
 .cart .item {
@@ -172,6 +207,7 @@ body {
   margin-top: 10px;
 }
 
+/* footer */
 .footer {
   display: flex;
   justify-content: center;
@@ -185,6 +221,7 @@ body {
   color: #111;
 }
 
+/* 详情页 */
 .detail-page {
   padding: 18px;
 }
@@ -193,26 +230,29 @@ body {
   width: 100%;
   height: 420px;
   object-fit: contain;
+  background: #fff;
 }
 
-.detail-info {
-  padding-top: 12px;
-}
-
+/* 颜色圆点 */
 .color-row {
   display: flex;
-  gap: 8px;
+  gap: 10px;
   margin: 12px 0;
 }
 
-.color-btn {
-  padding: 8px 10px;
+.color-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
   border: 1px solid #111;
-  background: transparent;
   cursor: pointer;
-  font-weight: 600;
 }
 
+.color-dot.active {
+  box-shadow: 0 0 0 3px rgba(0,0,0,0.1);
+}
+
+/* 数量 */
 .qty-row {
   display: flex;
   gap: 10px;
@@ -229,4 +269,31 @@ body {
 
 .qty-row span {
   font-weight: 700;
+}
+
+/* 轮播左右按钮 */
+.slider-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 12px 0;
+}
+
+.slider-row button {
+  padding: 10px 14px;
+  border: 1px solid #111;
+  background: transparent;
+  cursor: pointer;
+}
+
+/* 加入购物车提示 */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #111;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 999px;
+  display: none;
+  z-index: 999;
 }
