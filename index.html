@@ -10,8 +10,10 @@
   <header class="top">
     <div class="left-menu">
       <button class="menu-btn" onclick="toggleMenu()">☰</button>
+
       <div class="menu" id="menu">
         <h3 data-en="Categories" data-zh="分类">Categories</h3>
+
         <div class="cat-list">
           <button onclick="setCategory('All')" class="active">All</button>
           <button onclick="setCategory('T恤')">T恤</button>
@@ -38,17 +40,17 @@
   </header>
 
   <main>
+    <section class="products" id="products">
+      <h2 data-en="Products" data-zh="产品">Products</h2>
+      <div id="productList" class="grid"></div>
+    </section>
+
     <section class="hero">
       <h1 data-en="Fashion for Every Space" data-zh="适合每个空间的时尚">Fashion for Every Space</h1>
       <p data-en="Malaysia online clothing store. Add products soon."
          data-zh="马来西亚线上服装店。即将上架产品。">
         Malaysia online clothing store. Add products soon.
       </p>
-    </section>
-
-    <section class="products" id="products">
-      <h2 data-en="Products" data-zh="产品">Products</h2>
-      <div id="productList" class="grid"></div>
     </section>
 
     <section class="cart" id="cart">
