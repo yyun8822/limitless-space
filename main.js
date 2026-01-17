@@ -37,22 +37,20 @@ function renderProducts() {
         p.images.default ||
         "";
 
-      const card = document.createElement("div");
-      card.className = "card";
-      card.onclick = () => {
-        // 以后可以接详情页
-        alert(p.name_zh);
-      };
+      const item = document.createElement("div");
+      item.className = "product";
 
-      card.innerHTML = `
-        <img src="${img}">
-        <div class="info">
+      item.innerHTML = `
+        <div class="img">
+          <img src="${img}">
+        </div>
+        <div class="meta">
           <div class="name">${p.name_zh}</div>
           <div class="price">RM ${p.price}</div>
         </div>
       `;
 
-      list.appendChild(card);
+      list.appendChild(item);
     });
 }
 
