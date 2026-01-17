@@ -1,22 +1,29 @@
 [
   {
     "id": 1,
-    "name_en": "Basic T-Shirt",
-    "name_zh": "基础T恤",
+    "name_en": "Classic T-Shirt",
+    "name_zh": "经典T恤",
     "category": "T恤",
     "price": 39,
-    "image": "https://via.placeholder.com/400x400.png?text=Basic+T-Shirt",
-    "sizes": ["S","M","L","XL"],
-    "colors": ["Black","White","Grey"]
+    "images": {
+      "Black": "https://via.placeholder.com/400x400.png?text=Black+T-Shirt",
+      "White": "https://via.placeholder.com/400x400.png?text=White+T-Shirt",
+      "Grey": "https://via.placeholder.com/400x400.png?text=Grey+T-Shirt"
+    },
+    "colors": ["Black", "White", "Grey"],
+    "sizes": ["S", "M", "L", "XL"]
   },
   {
     "id": 2,
-    "name_en": "Hoodie",
+    "name_en": "Cozy Hoodie",
     "name_zh": "连帽衫",
     "category": "连帽衫",
-    "price": 89,
-    "image": "https://via.placeholder.com/400x400.png?text=Hoodie",
-    "sizes": ["S","M","L","XL"],
-    "colors": ["Black","White","Grey"]
+    "price": 79,
+    "images": {
+      "Black": "https://via.placeholder.com/400x400.png?text=Black+Hoodie",
+      "Grey": "https://via.placeholder.com/400x400.png?text=Grey+Hoodie"
+    },
+    "colors": ["Black", "Grey"],
+    "sizes": ["M", "L", "XL"]
   }
 ]
