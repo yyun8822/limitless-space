@@ -7,216 +7,226 @@ body {
   color: #111;
 }
 
-header {
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 18px 20px;
+  padding: 16px 18px;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 18px;
 }
 
 .logo {
-  font-size: 26px;
-  font-weight: 800;
-  letter-spacing: 3px;
+  font-weight: 700;
+  letter-spacing: 5px;
 }
 
-.menuBtn {
-  font-size: 28px;
-  background: none;
-  border: none;
+.hamburger {
+  font-size: 24px;
   cursor: pointer;
 }
 
-/* 主页商品网格 */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
-  padding: 20px;
-}
-
-.card {
-  background: #fff;
-  text-align: center;
-  padding: 10px 0;
-}
-
-.card img {
-  width: 100%;
-  height: 280px;
-  object-fit: contain; /* 关键：完整显示图片 */
-}
-
-.card h3 {
-  margin: 12px 0 6px;
+.back {
+  text-decoration: none;
+  color: #111;
   font-size: 16px;
+  margin-right: 12px;
 }
 
-.card p {
-  margin: 6px 0;
-  font-size: 14px;
-}
-
-.card button {
-  margin-top: 10px;
-  padding: 10px 18px;
-  border: none;
-  background: #111;
-  color: #fff;
+.cart-icon {
   cursor: pointer;
-  font-weight: 600;
+  font-size: 18px;
 }
 
-/* 汉堡菜单 */
 .menu {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 40%;
-  height: 100%;
-  background: #f5f5f5;
-  transform: translateX(-100%);
-  transition: transform 0.3s ease;
-  padding: 20px;
-  z-index: 999;
+  display: none;
+  padding: 14px 18px;
 }
 
-.menu.open {
-  transform: translateX(0);
-}
-
-.menuHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.menu.show {
+  display: block;
 }
 
 .menu input {
   width: 100%;
   padding: 10px;
-  margin: 12px 0;
+  margin-bottom: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
 }
 
-.menuList button {
+.cat-btn {
   width: 100%;
   padding: 12px;
+  margin: 6px 0;
   border: none;
-  background: none;
+  background: transparent;
   text-align: left;
   font-size: 16px;
   cursor: pointer;
 }
 
-/* 购物车 */
-.cartBtn {
-  position: fixed;
-  right: 18px;
-  top: 18px;
-  font-size: 26px;
+.cat-btn.active {
+  font-weight: 700;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  padding: 18px;
+}
+
+.card {
   cursor: pointer;
-  z-index: 9999;
 }
 
-#cartCount {
-  background: #111;
-  color: #fff;
-  border-radius: 50%;
-  padding: 2px 6px;
-  font-size: 12px;
-  margin-left: 6px;
+.card img {
+  width: 100%;
+  height: 280px;
+  object-fit: contain;
 }
 
-.cartModal {
-  display: none;
+.card .info {
+  padding: 10px 0;
+}
+
+.card .info h3 {
+  margin: 8px 0 4px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.card .info p {
+  margin: 0 0 8px;
+}
+
+.card .btn-row {
+  display: flex;
+  gap: 10px;
+}
+
+.add-btn {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #111;
+  background: transparent;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.view-btn {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #111;
+  background: transparent;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.cart {
   position: fixed;
-  right: 0;
-  top: 0;
-  width: 340px;
-  height: 100%;
+  right: 12px;
+  top: 70px;
+  width: 280px;
   background: #fff;
-  box-shadow: -3px 0 6px rgba(0,0,0,0.1);
-  z-index: 9998;
+  padding: 12px;
+  display: none;
 }
 
-.cartModal.open {
+.cart.show {
   display: block;
 }
 
-.cartContent {
-  padding: 20px;
-}
-
-.cartHeader {
+.cart-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
 }
 
-.cartHeader button {
-  border: none;
-  background: none;
-  font-size: 22px;
-  cursor: pointer;
-}
-
-.item {
+.cart .item {
   display: flex;
   justify-content: space-between;
-  margin: 12px 0;
+  margin: 10px 0;
 }
 
-.item button {
-  margin: 0 4px;
-  padding: 4px 8px;
+.cart .item button {
   border: none;
-  background: #111;
-  color: #fff;
+  background: transparent;
   cursor: pointer;
 }
 
-#checkoutBtn {
+.checkout {
   width: 100%;
   padding: 12px;
-  background: #111;
-  color: #fff;
-  border: none;
+  border: 1px solid #111;
+  background: transparent;
+  font-weight: 700;
   cursor: pointer;
-  margin-top: 14px;
+  margin-top: 10px;
 }
 
-/* 详情页 */
-.detail {
-  padding: 20px;
-}
-
-.detailBox {
+.footer {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
+  justify-content: center;
+  gap: 20px;
+  padding: 18px;
+  border-top: 1px solid #eee;
 }
 
-.slider {
-  display: flex;
-  overflow: hidden;
-  width: 100%;
+.footer a {
+  text-decoration: none;
+  color: #111;
 }
 
-.slider img {
+.detail-page {
+  padding: 18px;
+}
+
+.detail-img {
   width: 100%;
   height: 420px;
   object-fit: contain;
 }
 
-.colorDots {
-  display: flex;
-  gap: 10px;
-  margin-top: 8px;
+.detail-info {
+  padding-top: 12px;
 }
 
-.colorDot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
+.color-row {
+  display: flex;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.color-btn {
+  padding: 8px 10px;
+  border: 1px solid #111;
+  background: transparent;
   cursor: pointer;
-  border: 1px solid #ddd;
+  font-weight: 600;
+}
+
+.qty-row {
+  display: flex;
+  gap: 10px;
+  margin: 12px 0;
+  align-items: center;
+}
+
+.qty-row button {
+  padding: 8px 12px;
+  border: 1px solid #111;
+  background: transparent;
+  cursor: pointer;
+}
+
+.qty-row span {
+  font-weight: 700;
 }
