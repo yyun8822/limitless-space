@@ -12,11 +12,9 @@ async function loadProducts() {
   products = await response.json();
   renderProducts();
 
-  // 如果在详情页，就加载详情
   if (window.location.pathname.includes("product-detail.html")) {
     loadDetail();
   }
-
   renderCart();
 }
 
@@ -44,16 +42,12 @@ function renderProducts() {
     card.className = "card";
 
     card.innerHTML = `
-      ${p.tag ? `<div class="tag" data-en="${p.tag}" data-zh="${p.tag}">${p.tag}</div>` : ""}
       <img src="${p.images[p.colors[0]] || p.images.default}" alt="${p.name_en}" />
       <div class="info">
         <h3 data-en="${p.name_en}" data-zh="${p.name_zh}">${p.name_en}</h3>
-        <p data-en="Price: RM ${p.price}" data-zh="价格: RM ${p.price}">
-          Price: RM ${p.price}
-        </p>
-        <button onclick="viewDetail(${p.id})" data-en="View Details" data-zh="查看详情">
-          View Details
-        </button>
+        <p data-en="RM ${p.price}" data-zh="RM ${p.price}">RM ${p.price}</p>
+        <button onclick="viewDetail(${p.id})" data-en="View Details" data-zh="查看详情">View Details</button>
+        <button onclick="addToCartQuick(${p.id})" data-en="Add to Cart" data-zh="加入购物车">Add to Cart</button>
       </div>
     `;
 
@@ -95,6 +89,8 @@ function translate() {
 function changeLang(lang) {
   currentLang = lang;
   translate();
+  renderProducts();
+  renderCart();
 }
 
 function renderCart() {
@@ -126,7 +122,7 @@ function renderCart() {
       <span>
         <button onclick="changeQty(${index}, -1)">-</button>
         <button onclick="changeQty(${index}, 1)">+</button>
-        <button onclick="removeItem(${index})">Delete</button>
+        <button onclick="removeItem(${index})" data-en="Delete" data-zh="删除">Delete</button>
       </span>
     `;
     cartItems.appendChild(div);
@@ -164,10 +160,27 @@ function checkout() {
   window.open(`https://wa.me/60173988114?text=${message}`, "_blank");
 }
 
+// 快速加入购物车（首页按钮）
+function addToCartQuick(id) {
+  const p = products.find((x) => x.id === id);
+
+  cart.push({
+    id: p.id,
+    name_en: p.name_en,
+    name_zh: p.name_zh,
+    price: p.price,
+    color: p.colors[0],
+    size: p.sizes[0],
+    qty: 1
+  });
+
+  renderCart();
+  alert("Added to cart!");
+}
+
 function loadDetail() {
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
-
   selectedProduct = products.find((p) => p.id == id);
 
   if (!selectedProduct) return;
@@ -175,12 +188,10 @@ function loadDetail() {
   const detail = document.getElementById("detail");
   detail.innerHTML = `
     <div class="box">
-      <img id="detailImg" src="${selectedProduct.images.default || selectedProduct.images[selectedProduct.colors[0]]}" alt="${selectedProduct.name_en}" />
+      <img id="detailImg" src="${selectedProduct.images.default || selectedProduct.images[selectedProduct.colors[0]]}" />
       <div class="info">
         <h2 data-en="${selectedProduct.name_en}" data-zh="${selectedProduct.name_zh}">${selectedProduct.name_en}</h2>
-        <p data-en="Price: RM ${selectedProduct.price}" data-zh="价格: RM ${selectedProduct.price}">
-          Price: RM ${selectedProduct.price}
-        </p>
+        <p data-en="RM ${selectedProduct.price}" data-zh="RM ${selectedProduct.price}">RM ${selectedProduct.price}</p>
 
         <label data-en="Color" data-zh="颜色">Color</label>
         <select id="colorSelect"></select>
@@ -194,9 +205,7 @@ function loadDetail() {
           <button onclick="increaseQty()">+</button>
         </div>
 
-        <button onclick="addToCartDetail()" data-en="Add to Cart" data-zh="加入购物车">
-          Add to Cart
-        </button>
+        <button onclick="addToCartDetail()" data-en="Add to Cart" data-zh="加入购物车">Add to Cart</button>
       </div>
     </div>
   `;
