@@ -12,10 +12,13 @@
       <div class="hamburger" onclick="toggleMenu()">☰</div>
       <div class="logo">LIMITLESS SPACE</div>
     </div>
-    <div class="cart-icon" onclick="toggleCart()">🛒 <span id="cartCount">0</span></div>
+    <div class="cart-icon" onclick="toggleCart()">
+      <span class="cart-badge" id="cartCount">0</span>
+      🛒
+    </div>
   </header>
 
-  <!-- 汉堡菜单（覆盖左侧 50%） -->
+  <!-- 汉堡菜单 -->
   <div id="menu" class="menu">
     <input id="searchInput" type="text" placeholder="Search..." oninput="renderProducts()" />
     <button class="cat-btn active" onclick="setCategory('All')">All</button>
@@ -33,20 +36,22 @@
 
   <div id="cart" class="cart">
     <div class="cart-header">
-      <div>Cart</div>
-      <button onclick="toggleCart()">Close</button>
+      <div class="cart-title">Cart</div>
+      <button class="close-btn" onclick="toggleCart()">✕</button>
     </div>
     <div id="cartItems"></div>
     <div id="cartTotal"></div>
     <button id="checkoutBtn" class="checkout" onclick="checkout()">Checkout</button>
   </div>
 
-  <!-- 加入购物车后出现的小提示 -->
-  <div id="miniToast" class="miniToast">Added ✔</div>
+  <div id="miniToast" class="miniToast">
+    <span>Added to cart</span>
+    <span class="miniIcon">✔</span>
+  </div>
 
   <footer class="footer">
-    <a href="https://wa.me/60173988114" target="_blank">WhatsApp</a>
-    <a href="https://instagram.com/limitless_space8" target="_blank">Instagram</a>
+    <a href="https://wa.me/60173988114" target="_blank" class="footer-btn">WhatsApp</a>
+    <a href="https://instagram.com/limitless_space8" target="_blank" class="footer-btn">Instagram</a>
   </footer>
 
   <script src="main.js"></script>
