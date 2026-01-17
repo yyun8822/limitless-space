@@ -32,10 +32,13 @@ function loadDetail() {
 function renderDetail() {
   const detail = document.getElementById("detail");
   detail.innerHTML = `
-    <img id="detailImg" class="detail-img" src="${selectedProduct.images[selectedColor]}" alt="${selectedProduct.name_en}">
+    <div class="slider">
+      <img id="detailImg" class="detail-img" src="${selectedProduct.images[selectedColor]}" alt="${selectedProduct.name_en}">
+    </div>
+
     <div class="detail-info">
       <h2>${selectedProduct.name_en}</h2>
-      <p>RM ${selectedProduct.price}</p>
+      <p class="price">RM ${selectedProduct.price}</p>
 
       <div class="color-row">
         ${selectedProduct.colors.map(c => `
@@ -43,15 +46,10 @@ function renderDetail() {
         `).join("")}
       </div>
 
-      <div class="slider-row">
-        <button class="nav-btn" onclick="prevColor()">←</button>
-        <button class="nav-btn" onclick="nextColor()">→</button>
-      </div>
-
       <div class="qty-row">
-        <button onclick="changeQty(-1)">-</button>
+        <button class="qty-btn" onclick="changeQty(-1)">-</button>
         <span id="qtyText">${qty}</span>
-        <button onclick="changeQty(1)">+</button>
+        <button class="qty-btn" onclick="changeQty(1)">+</button>
       </div>
 
       <button class="add-btn" onclick="addToCart()">Add to Cart</button>
@@ -71,20 +69,6 @@ function updateImage() {
   img.src = selectedProduct.images[selectedColor];
 }
 
-function prevColor() {
-  let idx = selectedProduct.colors.indexOf(selectedColor);
-  idx = (idx - 1 + selectedProduct.colors.length) % selectedProduct.colors.length;
-  selectedColor = selectedProduct.colors[idx];
-  updateImage();
-}
-
-function nextColor() {
-  let idx = selectedProduct.colors.indexOf(selectedColor);
-  idx = (idx + 1) % selectedProduct.colors.length;
-  selectedColor = selectedProduct.colors[idx];
-  updateImage();
-}
-
 function changeQty(delta) {
   qty += delta;
   if (qty < 1) qty = 1;
@@ -99,11 +83,17 @@ function addToCart() {
     name_en: selectedProduct.name_en,
     price: selectedProduct.price,
     color: selectedColor,
-    size: selectedProduct.sizes[0],
     qty
   });
 
   localStorage.setItem("cart", JSON.stringify(cart));
-  showToast(); // 显示小提示
+  showToast();
 }
+
+function showToast() {
+  const toast = document.getElementById("miniToast");
+  toast.classList.add("show");
+  setTimeout(() => toast.classList.remove("show"), 1200);
+}
+
 loadProducts();
