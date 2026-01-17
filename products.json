@@ -1,56 +1,22 @@
 [
   {
     "id": 1,
-    "category": "T恤",
     "name_en": "Basic T-Shirt",
-    "name_zh": "基础款T恤",
-    "price": 49,
-    "image": "https://via.placeholder.com/400x400?text=T-Shirt",
-    "tag": "New"
+    "name_zh": "基础T恤",
+    "category": "T恤",
+    "price": 39,
+    "image": "https://via.placeholder.com/400x400.png?text=Basic+T-Shirt",
+    "sizes": ["S","M","L","XL"],
+    "colors": ["Black","White","Grey"]
   },
   {
     "id": 2,
+    "name_en": "Hoodie",
+    "name_zh": "连帽衫",
     "category": "连帽衫",
-    "name_en": "Cozy Hoodie",
-    "name_zh": "舒适连帽衫",
     "price": 89,
-    "image": "https://via.placeholder.com/400x400?text=Hoodie",
-    "tag": "Hot"
-  },
-  {
-    "id": 3,
-    "category": "裙子",
-    "name_en": "Summer Dress",
-    "name_zh": "夏日连衣裙",
-    "price": 99,
-    "image": "https://via.placeholder.com/400x400?text=Dress",
-    "tag": "Sale"
-  },
-  {
-    "id": 4,
-    "category": "外套",
-    "name_en": "Windbreaker Jacket",
-    "name_zh": "防风外套",
-    "price": 129,
-    "image": "https://via.placeholder.com/400x400?text=Jacket",
-    "tag": ""
-  },
-  {
-    "id": 5,
-    "category": "短裤",
-    "name_en": "Casual Shorts",
-    "name_zh": "休闲短裤",
-    "price": 59,
-    "image": "https://via.placeholder.com/400x400?text=Shorts",
-    "tag": ""
-  },
-  {
-    "id": 6,
-    "category": "长裤",
-    "name_en": "Jeans Pants",
-    "name_zh": "牛仔长裤",
-    "price": 89,
-    "image": "https://via.placeholder.com/400x400?text=Jeans",
-    "tag": ""
+    "image": "https://via.placeholder.com/400x400.png?text=Hoodie",
+    "sizes": ["S","M","L","XL"],
+    "colors": ["Black","White","Grey"]
   }
 ]
