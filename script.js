@@ -1,40 +1,33 @@
-// Product data (you can add more anytime)
-const products = [
-  {
-    id: 1,
-    name_en: "T-Shirt",
-    name_zh: "T恤",
-    price: 49,
-    image: "https://via.placeholder.com/400x400?text=T-Shirt",
-  },
-  {
-    id: 2,
-    name_en: "Hoodie",
-    name_zh: "连帽衫",
-    price: 89,
-    image: "https://via.placeholder.com/400x400?text=Hoodie",
-  },
-  {
-    id: 3,
-    name_en: "Dress",
-    name_zh: "连衣裙",
-    price: 99,
-    image: "https://via.placeholder.com/400x400?text=Dress",
-  }
-];
-
+let products = [];
 let cart = [];
 let currentLang = "en";
+let currentCategory = "All";
+
+async function loadProducts() {
+  const response = await fetch("products.json");
+  products = await response.json();
+  renderProducts();
+  renderCart();
+}
 
 function renderProducts() {
   const list = document.getElementById("productList");
   list.innerHTML = "";
 
-  products.forEach((p) => {
+  const searchText = document.getElementById("searchInput").value.toLowerCase();
+
+  const filtered = products.filter((p) => {
+    const matchCategory = currentCategory === "All" ? true : p.category === currentCategory;
+    const matchSearch = p.name_en.toLowerCase().includes(searchText) || p.name_zh.includes(searchText);
+    return matchCategory && matchSearch;
+  });
+
+  filtered.forEach((p) => {
     const card = document.createElement("div");
     card.className = "card";
 
     card.innerHTML = `
+      ${p.tag ? `<div class="tag" data-en="${p.tag}" data-zh="${p.tag}">${p.tag}</div>` : ""}
       <img src="${p.image}" alt="${p.name_en}" />
       <div class="info">
         <h3 data-en="${p.name_en}" data-zh="${p.name_zh}">${p.name_en}</h3>
@@ -113,6 +106,23 @@ function changeLang(lang) {
   translate();
 }
 
+function setCategory(cat) {
+  currentCategory = cat;
+
+  document.querySelectorAll(".categories button").forEach((btn) => {
+    btn.classList.remove("active");
+    if (btn.innerText === cat || (cat === "All" && btn.innerText === "All")) {
+      btn.classList.add("active");
+    }
+  });
+
+  renderProducts();
+}
+
+function applyFilter() {
+  renderProducts();
+}
+
 function translate() {
   document.querySelectorAll("[data-en]").forEach((el) => {
     const en = el.getAttribute("data-en");
@@ -121,6 +131,4 @@ function translate() {
   });
 }
 
-// Run on load
-renderProducts();
-renderCart();
+loadProducts();
