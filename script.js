@@ -37,7 +37,7 @@ function renderProducts() {
 
     card.innerHTML = `
       ${p.tag ? `<div class="tag" data-en="${p.tag}" data-zh="${p.tag}">${p.tag}</div>` : ""}
-      <img src="${p.image}" alt="${p.name_en}" />
+      <img src="${p.images[p.colors[0]]}" alt="${p.name_en}" />
       <div class="info">
         <h3 data-en="${p.name_en}" data-zh="${p.name_zh}">${p.name_en}</h3>
         <p data-en="Price: RM ${p.price}" data-zh="价格: RM ${p.price}">
@@ -165,7 +165,7 @@ function loadDetail() {
   const detail = document.getElementById("detail");
   detail.innerHTML = `
     <div class="box">
-      <img src="${selectedProduct.image}" alt="${selectedProduct.name_en}" />
+      <img id="detailImg" src="${selectedProduct.images[selectedProduct.colors[0]]}" alt="${selectedProduct.name_en}" />
       <div class="info">
         <h2 data-en="${selectedProduct.name_en}" data-zh="${selectedProduct.name_zh}">${selectedProduct.name_en}</h2>
         <p data-en="Price: RM ${selectedProduct.price}" data-zh="价格: RM ${selectedProduct.price}">
@@ -191,7 +191,6 @@ function loadDetail() {
     </div>
   `;
 
-  // Load options
   const colorSelect = document.getElementById("colorSelect");
   selectedProduct.colors.forEach(c => {
     const option = document.createElement("option");
@@ -199,7 +198,14 @@ function loadDetail() {
     option.innerText = c;
     colorSelect.appendChild(option);
   });
+
   selectedColor = selectedProduct.colors[0];
+  document.getElementById("detailImg").src = selectedProduct.images[selectedColor];
+
+  colorSelect.onchange = () => {
+    selectedColor = colorSelect.value;
+    document.getElementById("detailImg").src = selectedProduct.images[selectedColor];
+  };
 
   const sizeSelect = document.getElementById("sizeSelect");
   selectedProduct.sizes.forEach(s => {
@@ -210,7 +216,6 @@ function loadDetail() {
   });
   selectedSize = selectedProduct.sizes[0];
 
-  colorSelect.onchange = () => selectedColor = colorSelect.value;
   sizeSelect.onchange = () => selectedSize = sizeSelect.value;
 
   translate();
