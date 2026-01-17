@@ -3,6 +3,7 @@ let cart = [];
 let currentLang = "en";
 let currentCategory = "All";
 
+// Load products from products.json
 async function loadProducts() {
   const response = await fetch("products.json");
   products = await response.json();
@@ -10,6 +11,13 @@ async function loadProducts() {
   renderCart();
 }
 
+// Toggle menu
+function toggleMenu() {
+  const menu = document.getElementById("menu");
+  menu.style.display = menu.style.display === "block" ? "none" : "block";
+}
+
+// Render products
 function renderProducts() {
   const list = document.getElementById("productList");
   list.innerHTML = "";
@@ -46,12 +54,14 @@ function renderProducts() {
   translate();
 }
 
+// Add to cart
 function addToCart(id) {
   const product = products.find((p) => p.id === id);
   cart.push(product);
   renderCart();
 }
 
+// Render cart
 function renderCart() {
   const cartItems = document.getElementById("cartItems");
   const cartTotal = document.getElementById("cartTotal");
@@ -86,6 +96,7 @@ function renderCart() {
   translate();
 }
 
+// Checkout
 function checkout() {
   let message = "Order details:%0A";
   let total = 0;
@@ -101,15 +112,17 @@ function checkout() {
   window.open(`https://wa.me/60173988114?text=${message}`, "_blank");
 }
 
+// Change language
 function changeLang(lang) {
   currentLang = lang;
   translate();
 }
 
+// Set category
 function setCategory(cat) {
   currentCategory = cat;
 
-  document.querySelectorAll(".categories button").forEach((btn) => {
+  document.querySelectorAll(".menu button").forEach((btn) => {
     btn.classList.remove("active");
     if (btn.innerText === cat || (cat === "All" && btn.innerText === "All")) {
       btn.classList.add("active");
@@ -119,10 +132,12 @@ function setCategory(cat) {
   renderProducts();
 }
 
+// Search filter
 function applyFilter() {
   renderProducts();
 }
 
+// Translate text
 function translate() {
   document.querySelectorAll("[data-en]").forEach((el) => {
     const en = el.getAttribute("data-en");
