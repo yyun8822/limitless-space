@@ -11,22 +11,21 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 14px 16px;
-  border-bottom: 1px solid #eee;
 }
 
 .logo {
-  font-size: 16px;
-  letter-spacing: 4px;
-  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: 5px;
+  font-weight: 700;
 }
 
 .hamburger {
-  font-size: 22px;
+  font-size: 24px;
   cursor: pointer;
 }
 
 .cart-icon {
-  font-size: 22px;
+  font-size: 24px;
   cursor: pointer;
   position: relative;
 }
@@ -46,7 +45,6 @@ body {
 .menu {
   display: none;
   padding: 16px;
-  border-bottom: 1px solid #eee;
 }
 
 .menu.show {
@@ -65,15 +63,15 @@ body {
   width: 100%;
   padding: 12px;
   margin: 6px 0;
-  border: 1px solid #ddd;
-  background: #fff;
+  background: transparent;
+  border: none;
   cursor: pointer;
   text-align: left;
+  font-size: 16px;
 }
 
 .menu button.active {
-  background: #111;
-  color: #fff;
+  font-weight: 700;
 }
 
 /* Grid */
@@ -87,20 +85,13 @@ body {
 /* Card */
 .card {
   cursor: pointer;
-  border: 1px solid #f0f0f0;
-  padding: 10px;
   background: #fff;
-  transition: transform .2s ease;
-}
-
-.card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  padding: 10px;
 }
 
 .card img {
   width: 100%;
-  height: 240px;
+  height: 260px;
   object-fit: cover;
 }
 
@@ -111,8 +102,9 @@ body {
 .add-btn {
   width: 100%;
   padding: 10px;
-  border: 1px solid #111;
-  background: #fff;
+  background: #111;
+  color: #fff;
+  border: none;
   cursor: pointer;
   font-weight: 600;
 }
@@ -122,8 +114,7 @@ body {
   position: fixed;
   right: 10px;
   top: 80px;
-  width: 280px;
-  border: 1px solid #eee;
+  width: 320px;
   padding: 12px;
   background: #fff;
 }
@@ -144,11 +135,42 @@ body {
   cursor: pointer;
 }
 
+/* Detail */
+.detail {
+  padding: 20px;
+}
+
+.detail .box {
+  display: flex;
+  gap: 20px;
+}
+
+.detail img {
+  width: 50%;
+  object-fit: cover;
+}
+
+.detail .info {
+  width: 50%;
+}
+
+.detail select, .detail button {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.qty {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
 /* Footer */
 .footer {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 30px;
   padding: 20px;
   border-top: 1px solid #eee;
 }
