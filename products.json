@@ -6,7 +6,8 @@
     "category": "外套",
     "price": 99,
     "images": {
-      "default": "images/0dcad8bc5bf341143b0b4dd14b35855f.jpeg,
+  "default": "https://raw.githubusercontent.com/yyun8822/limitless-space/main/images/0dcad8bc5bf341143b0b4dd14b35855f.jpeg"
+},
       "Black": "https://via.placeholder.com/400x400.png?text=Black+T-Shirt",
       "White": "https://via.placeholder.com/400x400.png?text=White+T-Shirt",
       "Grey": "https://via.placeholder.com/400x400.png?text=Grey+T-Shirt"
