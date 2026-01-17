@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Limitless Space</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="logo">Limitless Space</div>
+    <div class="lang">
+      <button onclick="changeLang('en')">EN</button>
+      <button onclick="changeLang('zh')">中文</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1 data-en="Fashion for Every Space" data-zh="适合每个空间的时尚">Fashion for Every Space</h1>
+      <p data-en="Online clothing store from Malaysia. DM on Instagram or WhatsApp to order."
+         data-zh="马来西亚线上服装店。请通过 Instagram 或 WhatsApp 下单。">
+        Online clothing store from Malaysia. DM on Instagram or WhatsApp to order.
+      </p>
+      <div class="cta">
+        <a href="https://wa.me/60173988114" target="_blank">WhatsApp</a>
+        <a href="https://instagram.com/limitless_space8" target="_blank">Instagram</a>
+      </div>
+    </section>
+
+    <section class="products">
+      <h2 data-en="Hot Items" data-zh="热卖商品">Hot Items</h2>
+      <div class="grid">
+        <div class="card">
+          <div class="img"></div>
+          <h3 data-en="Basic Tee" data-zh="基础款T恤">Basic Tee</h3>
+          <p data-en="Comfortable and stylish." data-zh="舒适又时尚。">Comfortable and stylish.</p>
+        </div>
+        <div class="card">
+          <div class="img"></div>
+          <h3 data-en="Street Hoodie" data-zh="街头连帽衫">Street Hoodie</h3>
+          <p data-en="Warm and trendy." data-zh="保暖又潮流。">Warm and trendy.</p>
+        </div>
+        <div class="card">
+          <div class="img"></div>
+          <h3 data-en="Summer Dress" data-zh="夏日连衣裙">Summer Dress</h3>
+          <p data-en="Light and breezy." data-zh="轻盈透气。">Light and breezy.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact">
+      <h2 data-en="Contact Us" data-zh="联系我们">Contact Us</h2>
+      <p data-en="Send us a message to order or ask questions." data-zh="发送消息下单或咨询。">
+        Send us a message to order or ask questions.
+      </p>
+      <div class="cta">
+        <a href="https://wa.me/60173988114" target="_blank">WhatsApp</a>
+        <a href="https://instagram.com/limitless_space8" target="_blank">Instagram</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p data-en="© 2026 Limitless Space. Made in Malaysia." data-zh="© 2026 Limitless Space。马来西亚制造。">
+      © 2026 Limitless Space. Made in Malaysia.
+    </p>
+  </footer>
+
+  <script>
+    function changeLang(lang) {
+      document.querySelectorAll("[data-en]").forEach((el) => {
+        el.textContent = el.getAttribute(`data-${lang}`);
+      });
+    }
+  </script>
+</body>
+</html>
