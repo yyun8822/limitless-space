@@ -1,18 +1,9 @@
 let products = [];
-let cart = [];
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let selectedProduct = null;
 let selectedColor = "";
 let selectedSize = "";
 let qty = 1;
-
-function loadCart() {
-  const stored = localStorage.getItem("ls_cart");
-  cart = stored ? JSON.parse(stored) : [];
-}
-
-function saveCart() {
-  localStorage.setItem("ls_cart", JSON.stringify(cart));
-}
 
 async function loadProducts() {
   const response = await fetch("products.json");
@@ -21,14 +12,72 @@ async function loadProducts() {
   renderCart();
 }
 
-function toggleMenu() {
-  const menu = document.getElementById("menu");
-  menu.classList.toggle("show");
+function loadDetail() {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+
+  selectedProduct = products.find((p) => p.id == id);
+  if (!selectedProduct) return;
+
+  const detail = document.getElementById("detail");
+  detail.innerHTML = `
+    <img id="detailImg" src="${selectedProduct.images.default}" alt="${selectedProduct.name_en}" />
+    <div class="info">
+      <h2>${selectedProduct.name_en}</h2>
+      <p>RM ${selectedProduct.price}</p>
+
+      <div class="colors" id="colorList"></div>
+
+      <div class="qty">
+        <button onclick="decreaseQty()">-</button>
+        <span id="qtyText">${qty}</span>
+        <button onclick="increaseQty()">+</button>
+      </div>
+
+      <button class="addToCart" onclick="addToCartDetail()">Add to Cart</button>
+    </div>
+  `;
+
+  const colorList = document.getElementById("colorList");
+  selectedProduct.colors.forEach(c => {
+    const btn = document.createElement("button");
+    btn.innerText = c;
+    btn.onclick = () => selectColor(c);
+    colorList.appendChild(btn);
+  });
+
+  selectedColor = selectedProduct.colors[0];
+  selectedSize = selectedProduct.sizes[0];
+  selectColor(selectedColor);
 }
 
-function toggleCart() {
-  const cartEl = document.getElementById("cart");
-  cartEl.style.display = cartEl.style.display === "block" ? "none" : "block";
+function selectColor(color) {
+  selectedColor = color;
+  document.getElementById("detailImg").src = selectedProduct.images[color];
+}
+
+function increaseQty() {
+  qty++;
+  document.getElementById("qtyText").innerText = qty;
+}
+
+function decreaseQty() {
+  if (qty > 1) qty--;
+  document.getElementById("qtyText").innerText = qty;
+}
+
+function addToCartDetail() {
+  cart.push({
+    id: selectedProduct.id,
+    name_en: selectedProduct.name_en,
+    price: selectedProduct.price,
+    color: selectedColor,
+    size: selectedSize,
+    qty: qty
+  });
+  saveCart();
+  renderCart();
+  alert("Added to cart!");
 }
 
 function renderCart() {
@@ -38,7 +87,7 @@ function renderCart() {
   const cartCount = document.getElementById("cartCount");
 
   cartItems.innerHTML = "";
-  cartCount.innerText = cart.reduce((acc, item) => acc + item.qty, 0);
+  cartCount.innerText = cart.length;
 
   if (cart.length === 0) {
     cartItems.innerHTML = `<p>Cart is empty</p>`;
@@ -54,18 +103,20 @@ function renderCart() {
     const div = document.createElement("div");
     div.className = "item";
     div.innerHTML = `
-      <span>${item.name_en} (${item.color}/${item.size})</span>
-      <span>RM ${item.price} x ${item.qty}</span>
-      <span>
+      <div>
+        <div>${item.name_en}</div>
+        <div>RM ${item.price} x ${item.qty}</div>
+      </div>
+      <div>
         <button onclick="changeQty(${index}, -1)">-</button>
         <button onclick="changeQty(${index}, 1)">+</button>
         <button onclick="removeItem(${index})">Delete</button>
-      </span>
+      </div>
     `;
     cartItems.appendChild(div);
   });
 
-  cartTotal.innerHTML = `<p>Total: RM ${total}</p>`;
+  cartTotal.innerHTML = `<div>Total: RM ${total}</div>`;
   checkoutBtn.style.display = "block";
 }
 
@@ -80,6 +131,11 @@ function removeItem(index) {
   cart.splice(index, 1);
   saveCart();
   renderCart();
+}
+
+function toggleCart() {
+  const cart = document.getElementById("cart");
+  cart.classList.toggle("open");
 }
 
 function checkout() {
@@ -97,97 +153,8 @@ function checkout() {
   window.open(`https://wa.me/60173988114?text=${message}`, "_blank");
 }
 
-function loadDetail() {
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get("id");
-
-  selectedProduct = products.find((p) => p.id == id);
-
-  if (!selectedProduct) return;
-
-  const detail = document.getElementById("detail");
-  detail.innerHTML = `
-    <div class="box">
-      <img id="detailImg" src="${selectedProduct.images[selectedProduct.colors[0]]}" alt="${selectedProduct.name_en}" />
-      <div class="info">
-        <h2>${selectedProduct.name_en}</h2>
-        <p>RM ${selectedProduct.price}</p>
-
-        <label>Color</label>
-        <select id="colorSelect"></select>
-
-        <label>Size</label>
-        <select id="sizeSelect"></select>
-
-        <div class="qty">
-          <button onclick="decreaseQty()">-</button>
-          <span id="qtyText">${qty}</span>
-          <button onclick="increaseQty()">+</button>
-        </div>
-
-        <button onclick="addToCartDetail()" class="add-btn">Add to Cart</button>
-      </div>
-    </div>
-  `;
-
-  const colorSelect = document.getElementById("colorSelect");
-  selectedProduct.colors.forEach(c => {
-    const option = document.createElement("option");
-    option.value = c;
-    option.innerText = c;
-    colorSelect.appendChild(option);
-  });
-
-  selectedColor = selectedProduct.colors[0];
-  document.getElementById("detailImg").src = selectedProduct.images[selectedColor];
-
-  colorSelect.onchange = () => {
-    selectedColor = colorSelect.value;
-    document.getElementById("detailImg").src = selectedProduct.images[selectedColor];
-  };
-
-  const sizeSelect = document.getElementById("sizeSelect");
-  selectedProduct.sizes.forEach(s => {
-    const option = document.createElement("option");
-    option.value = s;
-    option.innerText = s;
-    sizeSelect.appendChild(option);
-  });
-  selectedSize = selectedProduct.sizes[0];
-
-  sizeSelect.onchange = () => selectedSize = sizeSelect.value;
+function saveCart() {
+  localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-function increaseQty() {
-  qty++;
-  document.getElementById("qtyText").innerText = qty;
-}
-
-function decreaseQty() {
-  if (qty > 1) qty--;
-  document.getElementById("qtyText").innerText = qty;
-}
-
-function addToCartDetail() {
-  const exists = cart.find(c => c.id === selectedProduct.id && c.color === selectedColor && c.size === selectedSize);
-
-  if (exists) {
-    exists.qty += qty;
-  } else {
-    cart.push({
-      id: selectedProduct.id,
-      name_en: selectedProduct.name_en,
-      price: selectedProduct.price,
-      color: selectedColor,
-      size: selectedSize,
-      qty: qty
-    });
-  }
-
-  saveCart();
-  renderCart();
-  alert("Added to cart!");
-}
-
-loadCart();
 loadProducts();
