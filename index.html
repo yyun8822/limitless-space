@@ -15,6 +15,7 @@
     <div class="cart-icon" onclick="toggleCart()">🛒 <span id="cartCount">0</span></div>
   </header>
 
+  <!-- 汉堡菜单（覆盖左侧 50%） -->
   <div id="menu" class="menu">
     <input id="searchInput" type="text" placeholder="Search..." oninput="renderProducts()" />
     <button class="cat-btn active" onclick="setCategory('All')">All</button>
@@ -39,6 +40,9 @@
     <div id="cartTotal"></div>
     <button id="checkoutBtn" class="checkout" onclick="checkout()">Checkout</button>
   </div>
+
+  <!-- 加入购物车后出现的小提示 -->
+  <div id="miniToast" class="miniToast">Added ✔</div>
 
   <footer class="footer">
     <a href="https://wa.me/60173988114" target="_blank">WhatsApp</a>
