@@ -47,12 +47,10 @@ function renderProducts() {
       <div class="info">
         <h3>${p.name_en}</h3>
         <p>RM ${p.price}</p>
-        <div class="btn-row">
-          <button class="view-btn" onclick="viewDetail(${p.id})">View Detail</button>
-          <button class="add-btn" onclick="addToCart(${p.id})">Add to Cart</button>
-        </div>
       </div>
     `;
+
+    card.onclick = () => viewDetail(p.id);
     list.appendChild(card);
   });
 
@@ -61,25 +59,6 @@ function renderProducts() {
 
 function viewDetail(id) {
   window.location.href = `product-detail.html?id=${id}`;
-}
-
-function addToCart(id) {
-  const product = products.find(p => p.id === id);
-  const item = cart.find(c => c.id === id && c.color === product.colors[0] && c.size === product.sizes[0]);
-
-  if (item) item.qty++;
-  else cart.push({
-    id,
-    name_en: product.name_en,
-    price: product.price,
-    color: product.colors[0],
-    size: product.sizes[0],
-    qty: 1
-  });
-
-  saveCart();
-  renderCart();
-  updateCartCount();
 }
 
 function toggleCart() {
@@ -166,6 +145,12 @@ function loadCart() {
 function updateCartCount() {
   const count = cart.reduce((sum, item) => sum + item.qty, 0);
   document.getElementById("cartCount").innerText = count;
+}
+
+function showToast() {
+  const toast = document.getElementById("miniToast");
+  toast.classList.add("show");
+  setTimeout(() => toast.classList.remove("show"), 1200);
 }
 
 loadProducts();
