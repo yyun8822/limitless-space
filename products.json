@@ -3,12 +3,12 @@
     "id": 1,
     "name_en": "Classic T-Shirt",
     "name_zh": "经典T恤",
-    "category": "T恤",
+    "category": "T-Shirt",
     "price": 49,
     "images": {
-      "default": "images/0dcad8bc5bf341143b0b4dd14b35855f.jpeg",
-      "Green": "images/ad2382dad8b51c522930b8f918dd6b8f.jpeg",
-      "Black": "images/fb0484e9c96750fcd175fa4ce2860092.jpeg"
+      "default": "https://raw.githubusercontent.com/yyun8822/limitless-space/main/images/0dcad8bc5bf341143b0b4dd14b35855f.jpeg",
+      "Green": "https://raw.githubusercontent.com/yyun8822/limitless-space/main/images/ad2382dad8b51c522930b8f918dd6b8f.jpeg",
+      "Black": "https://raw.githubusercontent.com/yyun8822/limitless-space/main/images/fb0484e9c96750fcd175fa4ce2860092.jpeg"
     },
     "colors": ["Green", "Black"],
     "sizes": ["S", "M", "L", "XL"]
@@ -17,28 +17,28 @@
     "id": 2,
     "name_en": "Classic Hoodie",
     "name_zh": "经典连帽衫",
-    "category": "连帽衫",
+    "category": "Hoodie",
     "price": 79,
     "images": {
-      "default": "images/hoodie-black.jpeg",
-      "Black": "images/hoodie-black.jpeg",
-      "Grey": "images/hoodie-grey.jpeg"
+      "default": "https://raw.githubusercontent.com/yyun8822/limitless-space/main/images/tee-black.jpeg",
+      "Black": "https://raw.githubusercontent.com/yyun8822/limitless-space/main/images/tee-black.jpeg",
+      "White": "https://raw.githubusercontent.com/yyun8822/limitless-space/main/images/tee-white.jpeg"
     },
-    "colors": ["Black", "Grey"],
+    "colors": ["Black", "White"],
     "sizes": ["S", "M", "L", "XL"]
   },
   {
-    "id": 2,
-    "name_en": "Classic Hoodie",
-    "name_zh": "经典连帽衫",
-    "category": "连帽衫",
-    "price": 79,
+    "id": 3,
+    "name_en": "Classic Jacket",
+    "name_zh": "经典外套",
+    "category": "Jacket",
+    "price": 99,
     "images": {
-      "default": "images/hoodie-black.jpeg",
-      "Black": "images/hoodie-black.jpeg",
-      "Grey": "images/hoodie-grey.jpeg"
+      "default": "https://raw.githubusercontent.com/yyun8822/limitless-space/main/images/tee-grey.jpeg",
+      "Grey": "https://raw.githubusercontent.com/yyun8822/limitless-space/main/images/tee-grey.jpeg",
+      "Black": "https://raw.githubusercontent.com/yyun8822/limitless-space/main/images/tee-black.jpeg"
     },
-    "colors": ["Black", "Grey"],
+    "colors": ["Grey", "Black"],
     "sizes": ["S", "M", "L", "XL"]
   }
 ]
