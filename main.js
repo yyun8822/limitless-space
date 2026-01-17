@@ -88,7 +88,7 @@ function renderCart() {
     div.innerHTML = `
       <div>
         <div>${item.name_en}</div>
-        <div>${item.color} / ${item.size}</div>
+        <div>${item.color}</div>
       </div>
       <div>
         <div>RM ${item.price} x ${item.qty}</div>
@@ -125,7 +125,7 @@ function checkout() {
   let msg = "Order details:%0A";
   let total = 0;
   cart.forEach((item, i) => {
-    msg += `${i+1}. ${item.name_en} (${item.color}/${item.size}) x ${item.qty} - RM ${item.price}%0A`;
+    msg += `${i+1}. ${item.name_en} (${item.color}) x ${item.qty} - RM ${item.price}%0A`;
     total += item.price * item.qty;
   });
   msg += `Total: RM ${total}%0A`;
