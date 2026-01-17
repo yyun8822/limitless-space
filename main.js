@@ -39,15 +39,16 @@ function renderProducts() {
 
       const card = document.createElement("div");
       card.className = "card";
+      card.onclick = () => {
+        // 以后可以接详情页
+        alert(p.name_zh);
+      };
 
       card.innerHTML = `
-        <div class="img">
-          <img src="${img}">
-        </div>
+        <img src="${img}">
         <div class="info">
           <div class="name">${p.name_zh}</div>
           <div class="price">RM ${p.price}</div>
-          <button onclick="alert('Add later')">Add to Cart</button>
         </div>
       `;
 
