@@ -9,26 +9,41 @@
 <body>
 
 <header class="header">
-  <div class="hamburger" onclick="toggleMenu()">☰</div>
+  <div class="left">
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+  </div>
   <div class="logo">LIMITLESS SPACE</div>
+  <div class="right">
+    <button onclick="changeLang('en')">EN</button>
+    <button onclick="changeLang('zh')">中文</button>
+  </div>
 </header>
 
-<aside id="menu" class="menu">
+<!-- 汉堡菜单 -->
+<div id="menu" class="menu">
+  <input id="searchInput" oninput="applyFilter()" placeholder="Search..." />
   <button onclick="setCategory('All')">All</button>
-  <button onclick="setCategory('T恤')">T-Shirts</button>
-  <button onclick="setCategory('连帽衫')">Hoodies</button>
-  <button onclick="setCategory('裙子')">Skirts</button>
-  <input id="searchInput" placeholder="Search" oninput="renderProducts()">
-</aside>
+  <button onclick="setCategory('T恤')">T恤</button>
+  <button onclick="setCategory('连帽衫')">连帽衫</button>
+  <button onclick="setCategory('裙子')">裙子</button>
+  <button onclick="setCategory('外套')">外套</button>
+  <button onclick="setCategory('短裤')">短裤</button>
+  <button onclick="setCategory('长裤')">长裤</button>
+</div>
 
-<section class="hero">
-  <h1>Everyday Wear</h1>
-  <p>Designed for every space</p>
-</section>
+<!-- 商品列表 -->
+<main id="productList" class="grid"></main>
 
-<main id="productList" class="product-list"></main>
+<!-- 购物车 -->
+<div class="cart">
+  <h3>Cart</h3>
+  <div id="cartItems"></div>
+  <div id="cartTotal"></div>
+  <button id="checkoutBtn" onclick="checkout()">Checkout</button>
+</div>
 
-<footer class="bottom">
+<!-- 底部 WhatsApp + Instagram -->
+<footer class="footer">
   <a href="https://wa.me/60173988114" target="_blank">WhatsApp</a>
   <a href="https://instagram.com/limitless_space8" target="_blank">Instagram</a>
 </footer>
