@@ -3,33 +3,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Product - Limitless Space</title>
+  <title>Products - Limitless Space</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="top">
-    <div class="left-menu">
-      <button class="menu-btn" onclick="toggleMenu()">☰</button>
-      <div class="menu" id="menu">
-        <h3 data-en="Categories" data-zh="分类">Categories</h3>
-        <button onclick="setCategory('All')" class="active">All</button>
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    <div class="logo">Limitless Space</div>
+    <div class="lang">
+      <button onclick="changeLang('en')">EN</button>
+      <button onclick="changeLang('zh')">中文</button>
+    </div>
+
+    <div class="menu" id="menu">
+      <h3 data-en="Categories" data-zh="分类">Categories</h3>
+      <div class="cat-list">
         <button onclick="setCategory('T恤')">T恤</button>
         <button onclick="setCategory('连帽衫')">连帽衫</button>
         <button onclick="setCategory('裙子')">裙子</button>
         <button onclick="setCategory('外套')">外套</button>
         <button onclick="setCategory('短裤')">短裤</button>
         <button onclick="setCategory('长裤')">长裤</button>
-
-        <h3 data-en="Search" data-zh="搜索">Search</h3>
-        <input id="searchInput" type="text" placeholder="Search products..." oninput="applyFilter()" />
       </div>
-    </div>
-
-    <div class="logo">Limitless Space</div>
-
-    <div class="lang">
-      <button onclick="changeLang('en')">EN</button>
-      <button onclick="changeLang('zh')">中文</button>
+      <h3 data-en="Search" data-zh="搜索">Search</h3>
+      <input id="searchInput" type="text" placeholder="Search..." oninput="applyFilter()" />
+      <button class="menu-close" onclick="toggleMenu()">Close</button>
     </div>
   </header>
 
