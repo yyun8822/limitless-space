@@ -1,15 +1,6 @@
 let products = [];
-let cart = [];
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let currentCategory = "All";
-
-function loadCart() {
-  const stored = localStorage.getItem("ls_cart");
-  cart = stored ? JSON.parse(stored) : [];
-}
-
-function saveCart() {
-  localStorage.setItem("ls_cart", JSON.stringify(cart));
-}
 
 async function loadProducts() {
   const response = await fetch("products.json");
@@ -20,12 +11,7 @@ async function loadProducts() {
 
 function toggleMenu() {
   const menu = document.getElementById("menu");
-  menu.classList.toggle("show");
-}
-
-function toggleCart() {
-  const cartEl = document.getElementById("cart");
-  cartEl.style.display = cartEl.style.display === "block" ? "none" : "block";
+  menu.style.display = menu.style.display === "block" ? "none" : "block";
 }
 
 function renderProducts() {
@@ -36,7 +22,7 @@ function renderProducts() {
 
   const filtered = products.filter((p) => {
     const matchCategory = currentCategory === "All" ? true : p.category === currentCategory;
-    const matchSearch = p.name_en.toLowerCase().includes(searchText);
+    const matchSearch = p.name_en.toLowerCase().includes(searchText) || p.name_zh.includes(searchText);
     return matchCategory && matchSearch;
   });
 
@@ -45,12 +31,12 @@ function renderProducts() {
     card.className = "card";
 
     card.innerHTML = `
-      <img src="${p.images[p.colors[0]]}" alt="${p.name_en}" />
+      <img src="${p.images.default}" alt="${p.name_en}" />
       <div class="info">
         <h3>${p.name_en}</h3>
         <p>RM ${p.price}</p>
-        <button class="add-btn" onclick="addToCart(${p.id})">Add to Cart</button>
-        <button onclick="viewDetail(${p.id})">View Details</button>
+        <button onclick="viewDetail(${p.id})">View Detail</button>
+        <button onclick="addToCartHome(${p.id})">Add to Cart</button>
       </div>
     `;
 
@@ -58,36 +44,33 @@ function renderProducts() {
   });
 }
 
+function viewDetail(id) {
+  window.location.href = `product-detail.html?id=${id}`;
+}
+
 function setCategory(cat) {
   currentCategory = cat;
 
   document.querySelectorAll(".menu button").forEach((btn) => {
     btn.classList.remove("active");
-    if (btn.innerText === cat) btn.classList.add("active");
+    if (btn.innerText === (cat === "All" ? "All" : "T-Shirts")) {
+      btn.classList.add("active");
+    }
   });
 
   renderProducts();
 }
 
-function viewDetail(id) {
-  window.location.href = `product-detail.html?id=${id}`;
-}
-
-function addToCart(id) {
+function addToCartHome(id) {
   const product = products.find(p => p.id === id);
-  const exists = cart.find(c => c.id === id && c.color === product.colors[0]);
-  if (exists) {
-    exists.qty++;
-  } else {
-    cart.push({
-      id: product.id,
-      name_en: product.name_en,
-      price: product.price,
-      color: product.colors[0],
-      size: product.sizes[0],
-      qty: 1
-    });
-  }
+  cart.push({
+    id: product.id,
+    name_en: product.name_en,
+    price: product.price,
+    color: product.colors[0],
+    size: product.sizes[0],
+    qty: 1
+  });
   saveCart();
   renderCart();
 }
@@ -99,7 +82,7 @@ function renderCart() {
   const cartCount = document.getElementById("cartCount");
 
   cartItems.innerHTML = "";
-  cartCount.innerText = cart.reduce((acc, item) => acc + item.qty, 0);
+  cartCount.innerText = cart.length;
 
   if (cart.length === 0) {
     cartItems.innerHTML = `<p>Cart is empty</p>`;
@@ -115,18 +98,20 @@ function renderCart() {
     const div = document.createElement("div");
     div.className = "item";
     div.innerHTML = `
-      <span>${item.name_en} (${item.color}/${item.size})</span>
-      <span>RM ${item.price} x ${item.qty}</span>
-      <span>
+      <div>
+        <div>${item.name_en}</div>
+        <div>RM ${item.price} x ${item.qty}</div>
+      </div>
+      <div>
         <button onclick="changeQty(${index}, -1)">-</button>
         <button onclick="changeQty(${index}, 1)">+</button>
         <button onclick="removeItem(${index})">Delete</button>
-      </span>
+      </div>
     `;
     cartItems.appendChild(div);
   });
 
-  cartTotal.innerHTML = `<p>Total: RM ${total}</p>`;
+  cartTotal.innerHTML = `<div>Total: RM ${total}</div>`;
   checkoutBtn.style.display = "block";
 }
 
@@ -141,6 +126,11 @@ function removeItem(index) {
   cart.splice(index, 1);
   saveCart();
   renderCart();
+}
+
+function toggleCart() {
+  const cart = document.getElementById("cart");
+  cart.classList.toggle("open");
 }
 
 function checkout() {
@@ -158,5 +148,8 @@ function checkout() {
   window.open(`https://wa.me/60173988114?text=${message}`, "_blank");
 }
 
-loadCart();
+function saveCart() {
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
+
 loadProducts();
