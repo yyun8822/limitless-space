@@ -1,68 +1,75 @@
-let products = [];
-let currentCategory = 'all';
-let currentProduct = null;
+let products=[], cart=[], current=null, lang='en', cat='all', color='';
 
-fetch('products.json')
-  .then(r => r.json())
-  .then(data => {
-    products = data;
-    renderProducts();
-  });
+fetch('products.json').then(r=>r.json()).then(d=>{
+  products=d; renderProducts();
+});
 
-function toggleMenu() {
-  document.getElementById('sideMenu').classList.toggle('open');
+function toggleMenu(){ document.getElementById('menu').classList.toggle('open'); }
+function toggleLang(){ lang=lang==='en'?'zh':'en'; renderProducts(); }
+function filterCat(c){ cat=c; renderProducts(); }
+
+function renderProducts(){
+  const list=document.getElementById('productList');
+  const newList=document.getElementById('newList');
+
+  const show=p=>cat==='all'||p.category===cat;
+
+  list.innerHTML=products.filter(show).map(p=>card(p)).join('');
+  newList.innerHTML=products.filter(p=>p.tag==='new').map(p=>card(p)).join('');
 }
 
-function filterCategory(cat) {
-  currentCategory = cat;
-  toggleMenu();
-  renderProducts();
+function card(p){
+  const firstColor=Object.keys(p.colors)[0];
+  return `
+  <div onclick="openProduct(${p.id})">
+    <img src="${p.colors[firstColor].images[0]}">
+    <p>${p.name[lang]}</p>
+    <p>RM ${p.price}</p>
+  </div>`;
 }
 
-function renderProducts() {
-  const keyword = document.getElementById('searchInput').value.toLowerCase();
-  const list = document.getElementById('product-list');
+function openProduct(id){
+  current=products.find(p=>p.id===id);
+  color=Object.keys(current.colors)[0];
+  document.getElementById('detailImg').src=current.colors[color].images[0];
+  document.getElementById('colorBtns').innerHTML=
+    Object.keys(current.colors).map(c=>`<button onclick="setColor('${c}')">${c}</button>`).join('');
+  document.getElementById('sizeSelect').innerHTML=
+    current.sizes.map(s=>`<option>${s}</option>`).join('');
+  document.getElementById('modal').style.display='block';
+}
 
-  list.innerHTML = products
-    .filter(p =>
-      (currentCategory === 'all' || p.category === currentCategory) &&
-      p.name_en.toLowerCase().includes(keyword)
-    )
-    .map(p => `
-      <div class="product-card" onclick="openProduct(${p.id})">
-        <img src="${p.images.default || p.images[p.colors[0]]}">
-        <h4>${p.name_en}</h4>
-        <p>RM ${p.price}</p>
+function setColor(c){
+  color=c;
+  document.getElementById('detailImg').src=current.colors[c].images[0];
+}
+
+function addToCart(){
+  const size=document.getElementById('sizeSelect').value;
+  const item=cart.find(i=>i.id===current.id&&i.color===color&&i.size===size);
+  item?item.qty++:cart.push({id:current.id,name:current.name[lang],price:current.price,color,size,qty:1});
+  renderCart();
+}
+
+function renderCart(){
+  document.getElementById('cartItems').innerHTML=
+    cart.map((i,idx)=>`
+      <div>
+        ${i.name} ${i.color}/${i.size}
+        <button onclick="chg(${idx},-1)">-</button>
+        ${i.qty}
+        <button onclick="chg(${idx},1)">+</button>
       </div>
     `).join('');
 }
 
-function openProduct(id) {
-  currentProduct = products.find(p => p.id === id);
-  document.getElementById('detailImg').src =
-    currentProduct.images.default || currentProduct.images[currentProduct.colors[0]];
-  document.getElementById('detailName').innerText = currentProduct.name_en;
-  document.getElementById('detailPrice').innerText = 'RM ' + currentProduct.price;
+function chg(i,n){ cart[i].qty+=n; if(cart[i].qty<=0)cart.splice(i,1); renderCart(); }
 
-  document.getElementById('colorOptions').innerHTML =
-    currentProduct.colors.map(c =>
-      `<button onclick="changeColor('${c}')">${c}</button>`
-    ).join('');
-
-  document.getElementById('sizeSelect').innerHTML =
-    currentProduct.sizes.map(s => `<option>${s}</option>`).join('');
-
-  document.getElementById('productModal').style.display = 'block';
+function checkout(){
+  let msg='【Limitless Space Order】%0A', total=0;
+  cart.forEach(i=>{msg+=`${i.name} ${i.color}/${i.size} x${i.qty}%0A`; total+=i.price*i.qty;});
+  msg+=`Total: RM ${total}`;
+  window.open(`https://wa.me/60173988114?text=${msg}`);
 }
 
-function changeColor(color) {
-  document.getElementById('detailImg').src = currentProduct.images[color];
-}
-
-function closeModal() {
-  document.getElementById('productModal').style.display = 'none';
-}
-
-function addToCart() {
-  alert('已加入购物车（下一步可接 WhatsApp 下单）');
-}
+function closeModal(){ document.getElementById('modal').style.display='none'; }
