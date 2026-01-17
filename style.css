@@ -1,3 +1,5 @@
+* { box-sizing: border-box; }
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -9,17 +11,17 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 18px 20px;
 }
 
 .logo {
-  font-size: 24px;
-  font-weight: 700;
-  letter-spacing: 2px;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: 3px;
 }
 
 .menuBtn {
-  font-size: 24px;
+  font-size: 28px;
   background: none;
   border: none;
   cursor: pointer;
@@ -28,39 +30,40 @@ header {
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+  gap: 18px;
   padding: 20px;
 }
 
 .card {
   background: #fff;
-  padding: 10px;
   text-align: center;
+  padding: 10px 0;
 }
 
 .card img {
   width: 100%;
-  height: 250px;
-  object-fit: contain; /* 让图片完整显示 */
+  height: 280px;
+  object-fit: contain; /* 关键：完整显示图片 */
 }
 
 .card h3 {
-  margin: 10px 0 0;
+  margin: 12px 0 6px;
   font-size: 16px;
 }
 
 .card p {
-  margin: 5px 0;
+  margin: 6px 0;
   font-size: 14px;
 }
 
 .card button {
   margin-top: 10px;
-  padding: 10px 20px;
+  padding: 10px 18px;
   border: none;
   background: #111;
   color: #fff;
   cursor: pointer;
+  font-weight: 600;
 }
 
 .menu {
@@ -73,7 +76,7 @@ header {
   transform: translateX(-100%);
   transition: transform 0.3s ease;
   padding: 20px;
-  box-shadow: 3px 0 6px rgba(0,0,0,0.1);
+  z-index: 999;
 }
 
 .menu.open {
@@ -89,15 +92,26 @@ header {
 .menu input {
   width: 100%;
   padding: 10px;
-  margin: 10px 0;
+  margin: 12px 0;
+}
+
+.menuList button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  background: none;
+  text-align: left;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 .cartBtn {
   position: fixed;
-  right: 20px;
-  top: 20px;
-  font-size: 24px;
+  right: 18px;
+  top: 18px;
+  font-size: 26px;
   cursor: pointer;
+  z-index: 9999;
 }
 
 #cartCount {
@@ -106,7 +120,7 @@ header {
   border-radius: 50%;
   padding: 2px 6px;
   font-size: 12px;
-  margin-left: 5px;
+  margin-left: 6px;
 }
 
 .cartModal {
@@ -114,10 +128,11 @@ header {
   position: fixed;
   right: 0;
   top: 0;
-  width: 320px;
+  width: 340px;
   height: 100%;
   background: #fff;
   box-shadow: -3px 0 6px rgba(0,0,0,0.1);
+  z-index: 9998;
 }
 
 .cartModal.open {
@@ -137,25 +152,68 @@ header {
 .cartHeader button {
   border: none;
   background: none;
-  font-size: 20px;
+  font-size: 22px;
   cursor: pointer;
 }
 
 .item {
   display: flex;
   justify-content: space-between;
-  margin: 10px 0;
+  margin: 12px 0;
 }
 
 .item button {
-  margin: 0 5px;
+  margin: 0 4px;
+  padding: 4px 8px;
+  border: none;
+  background: #111;
+  color: #fff;
+  cursor: pointer;
 }
 
 #checkoutBtn {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   background: #111;
   color: #fff;
   border: none;
   cursor: pointer;
+  margin-top: 14px;
+}
+
+/* 详情页 */
+.detail {
+  padding: 20px;
+}
+
+.detailBox {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.slider {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+}
+
+.slider img {
+  width: 100%;
+  height: 420px;
+  object-fit: contain;
+}
+
+.colorDots {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.colorDot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 1px solid #ddd;
 }
