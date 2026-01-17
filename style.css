@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background: #fff;
   color: #111;
 }
@@ -21,15 +21,25 @@ body {
 }
 
 .hamburger {
-  font-size: 20px;
+  font-size: 22px;
   cursor: pointer;
 }
 
-.header button {
-  border: none;
-  background: none;
+.cart-icon {
+  font-size: 22px;
   cursor: pointer;
-  font-size: 14px;
+  position: relative;
+}
+
+.cart-icon span {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background: #111;
+  color: #fff;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
 }
 
 /* Menu */
@@ -66,15 +76,15 @@ body {
   color: #fff;
 }
 
-/* Grid（关键：两列）*/
+/* Grid */
 .grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 左右两列 */
+  grid-template-columns: repeat(2, 1fr);
   gap: 18px;
   padding: 20px;
 }
 
-/* 商品卡片 */
+/* Card */
 .card {
   cursor: pointer;
   border: 1px solid #f0f0f0;
@@ -90,7 +100,7 @@ body {
 
 .card img {
   width: 100%;
-  height: 240px; /* 固定高度，保证左右一致 */
+  height: 240px;
   object-fit: cover;
 }
 
@@ -112,10 +122,16 @@ body {
   position: fixed;
   right: 10px;
   top: 80px;
-  width: 240px;
+  width: 280px;
   border: 1px solid #eee;
   padding: 12px;
   background: #fff;
+}
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .cart .item {
