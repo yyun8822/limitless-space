@@ -12,9 +12,14 @@
       <div class="hamburger" onclick="toggleMenu()">☰</div>
       <div class="logo">LIMITLESS SPACE</div>
     </div>
-    <div class="cart-icon" onclick="toggleCart()">🛒 <span id="cartCount">0</span></div>
+
+    <!-- 购物车图标（固定可见） -->
+    <div class="cart-icon" onclick="toggleCart()">
+      🛒 <span id="cartCount">0</span>
+    </div>
   </header>
 
+  <!-- 汉堡菜单（覆盖 40%） -->
   <div id="menu" class="menu">
     <input id="searchInput" type="text" placeholder="Search..." oninput="renderProducts()" />
     <button class="cat-btn active" onclick="setCategory('All')">All</button>
@@ -30,6 +35,7 @@
     <section class="grid" id="productList"></section>
   </main>
 
+  <!-- 购物车弹窗 -->
   <div id="cart" class="cart">
     <div class="cart-header">
       <div>Cart</div>
@@ -39,6 +45,9 @@
     <div id="cartTotal"></div>
     <button id="checkoutBtn" class="checkout" onclick="checkout()">Checkout</button>
   </div>
+
+  <!-- 加入购物车小提示 -->
+  <div id="toast" class="toast">✓ Added</div>
 
   <footer class="footer">
     <a href="https://wa.me/60173988114" target="_blank">WhatsApp</a>
