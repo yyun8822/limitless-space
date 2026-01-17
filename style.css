@@ -1,0 +1,99 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f6f6f6;
+  color: #222;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 22px;
+}
+
+.lang button {
+  margin-left: 8px;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  background: #fff;
+  cursor: pointer;
+}
+
+.hero {
+  padding: 40px 20px;
+  text-align: center;
+  background: #fff;
+}
+
+.hero h1 {
+  margin: 0 0 10px;
+}
+
+.hero p {
+  margin: 0 0 20px;
+}
+
+.cta a {
+  display: inline-block;
+  margin: 5px;
+  padding: 12px 18px;
+  text-decoration: none;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fff;
+  color: #000;
+}
+
+.products {
+  padding: 30px 20px;
+}
+
+.products h2 {
+  text-align: center;
+}
+
+.grid {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 200px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.img {
+  width: 100%;
+  height: 120px;
+  background: #eee;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.contact {
+  padding: 30px 20px;
+  background: #fff;
+  text-align: center;
+}
+
+footer {
+  padding: 15px;
+  text-align: center;
+  background: #fff;
+  border-top: 1px solid #eee;
+}
