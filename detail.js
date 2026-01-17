@@ -60,7 +60,6 @@ function renderSlider() {
     slider.appendChild(img);
   });
 
-  // 滑动效果
   let startX = 0;
   let currentIndex = 0;
 
