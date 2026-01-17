@@ -3,6 +3,7 @@ let cart = [];
 let selectedProduct = null;
 let selectedColor = "";
 let qty = 1;
+let imgIndex = 0;
 
 function loadProducts() {
   fetch("products.json")
@@ -26,30 +27,32 @@ function loadDetail() {
   if (!selectedProduct) return;
 
   selectedColor = selectedProduct.colors[0];
+  imgIndex = 0;
+
   renderDetail();
 }
 
 function renderDetail() {
   const detail = document.getElementById("detail");
   detail.innerHTML = `
-    <div class="slider">
-      <img id="detailImg" class="detail-img" src="${selectedProduct.images[selectedColor]}" alt="${selectedProduct.name_en}">
-    </div>
-
+    <img id="detailImg" class="detail-img" src="${selectedProduct.images[selectedColor]}" alt="${selectedProduct.name_en}">
     <div class="detail-info">
       <h2>${selectedProduct.name_en}</h2>
-      <p class="price">RM ${selectedProduct.price}</p>
+      <p>RM ${selectedProduct.price}</p>
 
       <div class="color-row">
-        ${selectedProduct.colors.map(c => `
-          <button class="color-btn" style="background:${c.toLowerCase()}" onclick="changeColor('${c}')"></button>
-        `).join("")}
+        ${selectedProduct.colors.map(c => `<button class="color-btn" onclick="changeColor('${c}')">${c}</button>`).join("")}
       </div>
 
       <div class="qty-row">
-        <button class="qty-btn" onclick="changeQty(-1)">-</button>
+        <button onclick="changeQty(-1)">-</button>
         <span id="qtyText">${qty}</span>
-        <button class="qty-btn" onclick="changeQty(1)">+</button>
+        <button onclick="changeQty(1)">+</button>
+      </div>
+
+      <div class="slider-row">
+        <button onclick="prevImg()">←</button>
+        <button onclick="nextImg()">→</button>
       </div>
 
       <button class="add-btn" onclick="addToCart()">Add to Cart</button>
@@ -61,6 +64,7 @@ function renderDetail() {
 
 function changeColor(color) {
   selectedColor = color;
+  imgIndex = 0;
   updateImage();
 }
 
@@ -83,17 +87,24 @@ function addToCart() {
     name_en: selectedProduct.name_en,
     price: selectedProduct.price,
     color: selectedColor,
+    size: selectedProduct.sizes[0],
     qty
   });
 
   localStorage.setItem("cart", JSON.stringify(cart));
-  showToast();
+  alert("Added to cart!");
 }
 
-function showToast() {
-  const toast = document.getElementById("miniToast");
-  toast.classList.add("show");
-  setTimeout(() => toast.classList.remove("show"), 1200);
+function prevImg() {
+  imgIndex = (imgIndex - 1 + selectedProduct.colors.length) % selectedProduct.colors.length;
+  selectedColor = selectedProduct.colors[imgIndex];
+  updateImage();
+}
+
+function nextImg() {
+  imgIndex = (imgIndex + 1) % selectedProduct.colors.length;
+  selectedColor = selectedProduct.colors[imgIndex];
+  updateImage();
 }
 
 loadProducts();
