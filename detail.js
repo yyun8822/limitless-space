@@ -1,7 +1,6 @@
 let products = [];
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let selectedProduct;
-let selectedColor;
 let qty = 1;
 
 async function loadProducts() {
@@ -36,7 +35,7 @@ function loadDetail() {
       <div class="info">
         <h2>${selectedProduct.name_en}</h2>
         <p>RM ${selectedProduct.price}</p>
-        <div id="colorDots"></div>
+        <div id="colorDots" class="colorDots"></div>
         <div class="qty">
           <button onclick="changeQty(-1)">-</button>
           <span id="qtyText">${qty}</span>
@@ -58,11 +57,10 @@ function renderSlider() {
   selectedProduct.colors.forEach(color => {
     const img = document.createElement("img");
     img.src = selectedProduct.images[color];
-    img.className = "slide";
     slider.appendChild(img);
   });
 
-  // 简单滑动
+  // 滑动效果
   let startX = 0;
   let currentIndex = 0;
 
@@ -72,11 +70,8 @@ function renderSlider() {
 
   slider.addEventListener("touchend", (e) => {
     const endX = e.changedTouches[0].clientX;
-    if (endX - startX > 50) {
-      currentIndex = Math.max(0, currentIndex - 1);
-    } else if (startX - endX > 50) {
-      currentIndex = Math.min(selectedProduct.colors.length - 1, currentIndex + 1);
-    }
+    if (endX - startX > 50) currentIndex = Math.max(0, currentIndex - 1);
+    if (startX - endX > 50) currentIndex = Math.min(selectedProduct.colors.length - 1, currentIndex + 1);
     slider.style.transform = `translateX(-${currentIndex * 100}%)`;
   });
 }
@@ -153,7 +148,7 @@ function removeItem(index) {
 }
 
 function checkout() {
-  alert("Checkout feature not implemented yet");
+  alert("Checkout not implemented yet.");
 }
 
 loadProducts();
