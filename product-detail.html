@@ -15,20 +15,22 @@
   <aside id="menu" class="menu">
     <div class="menuHeader">
       <h2>Categories</h2>
-      <button onclick="toggleMenu()">✕</button>
+      <button class="closeBtn" onclick="toggleMenu()">✕</button>
     </div>
     <input type="text" id="searchInput" placeholder="Search..." oninput="renderProducts()">
-    <button onclick="setCategory('All')">All</button>
-    <button onclick="setCategory('T恤')">T恤</button>
-    <button onclick="setCategory('连帽衫')">连帽衫</button>
-    <button onclick="setCategory('裙子')">裙子</button>
-    <button onclick="setCategory('外套')">外套</button>
-    <button onclick="setCategory('短裤')">短裤</button>
-    <button onclick="setCategory('长裤')">长裤</button>
+    <div class="menuList">
+      <button onclick="setCategory('All')">All</button>
+      <button onclick="setCategory('T恤')">T恤</button>
+      <button onclick="setCategory('连帽衫')">连帽衫</button>
+      <button onclick="setCategory('裙子')">裙子</button>
+      <button onclick="setCategory('外套')">外套</button>
+      <button onclick="setCategory('短裤')">短裤</button>
+      <button onclick="setCategory('长裤')">长裤</button>
+    </div>
   </aside>
 
   <main>
-    <div id="detail"></div>
+    <div id="detail" class="detail"></div>
   </main>
 
   <div class="cartBtn" onclick="toggleCart()">
@@ -40,7 +42,7 @@
     <div class="cartContent">
       <div class="cartHeader">
         <h2>Cart</h2>
-        <button onclick="toggleCart()">✕</button>
+        <button class="closeBtn" onclick="toggleCart()">✕</button>
       </div>
       <div id="cartItems"></div>
       <div id="cartTotal"></div>
