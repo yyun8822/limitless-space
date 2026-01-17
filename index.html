@@ -7,31 +7,31 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Logo -->
   <div class="logo">LIMITLESS SPACE</div>
 
-  <!-- Hamburger -->
+  <div class="lang-switch">
+    <button onclick="changeLang('en')">EN</button>
+    <button onclick="changeLang('zh')">中文</button>
+  </div>
+
   <div class="hamburger" onclick="toggleMenu()">☰</div>
 
-  <!-- Menu -->
   <div id="menu" class="menu">
-    <div class="menu-title">Categories</div>
+    <div class="menu-title" data-en="Categories" data-zh="分类">Categories</div>
 
-    <button onclick="setCategory('All')" class="active">All</button>
-    <button onclick="setCategory('T恤')">T恤</button>
-    <button onclick="setCategory('连帽衫')">连帽衫</button>
-    <button onclick="setCategory('裙子')">裙子</button>
-    <button onclick="setCategory('外套')">外套</button>
-    <button onclick="setCategory('短裤')">短裤</button>
-    <button onclick="setCategory('长裤')">长裤</button>
+    <button onclick="setCategory('All')" class="active" data-en="All" data-zh="全部">All</button>
+    <button onclick="setCategory('T恤')" data-en="T-Shirt" data-zh="T恤">T恤</button>
+    <button onclick="setCategory('连帽衫')" data-en="Hoodie" data-zh="连帽衫">连帽衫</button>
+    <button onclick="setCategory('裙子')" data-en="Dress" data-zh="裙子">裙子</button>
+    <button onclick="setCategory('外套')" data-en="Jacket" data-zh="外套">外套</button>
+    <button onclick="setCategory('短裤')" data-en="Shorts" data-zh="短裤">短裤</button>
+    <button onclick="setCategory('长裤')" data-en="Pants" data-zh="长裤">长裤</button>
 
     <input id="searchInput" type="text" placeholder="Search" oninput="applyFilter()">
   </div>
 
-  <!-- Products -->
   <div id="productList" class="product-list"></div>
 
-  <!-- Cart -->
   <div class="cart">
     <h2 data-en="Cart" data-zh="购物车">Cart</h2>
     <div id="cartItems"></div>
@@ -39,10 +39,9 @@
     <button id="checkoutBtn" onclick="checkout()">Checkout</button>
   </div>
 
-  <!-- Bottom WhatsApp + Instagram -->
   <div class="bottom-social">
     <a href="https://wa.me/60173988114" target="_blank">WhatsApp</a>
-    <a href="https://instagram.com/" target="_blank">Instagram</a>
+    <a href="https://instagram.com/limitless_space8" target="_blank">Instagram</a>
   </div>
 
   <script src="main.js"></script>
