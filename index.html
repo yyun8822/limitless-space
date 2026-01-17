@@ -8,31 +8,26 @@
 </head>
 <body>
 
-<!-- Header -->
 <header class="header">
   <div class="hamburger" onclick="toggleMenu()">☰</div>
   <div class="logo">LIMITLESS SPACE</div>
 </header>
 
-<!-- Menu -->
 <aside id="menu" class="menu">
   <button onclick="setCategory('All')">All</button>
   <button onclick="setCategory('T恤')">T-Shirt</button>
   <button onclick="setCategory('连帽衫')">Hoodie</button>
   <button onclick="setCategory('裙子')">Skirt</button>
-
-  <input
-    id="searchInput"
-    type="text"
-    placeholder="Search"
-    oninput="renderProducts()"
-  >
+  <input id="searchInput" placeholder="Search" oninput="renderProducts()">
 </aside>
 
-<!-- Products -->
+<!-- Hero（非常 Uniqlo） -->
+<section class="hero">
+  <p>Simple. Daily. Essential.</p>
+</section>
+
 <main id="productList" class="product-list"></main>
 
-<!-- Bottom -->
 <footer class="bottom">
   <a href="https://wa.me/60173988114" target="_blank">WhatsApp</a>
   <a href="https://instagram.com/limitless_space8" target="_blank">Instagram</a>
