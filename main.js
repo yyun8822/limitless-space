@@ -40,6 +40,7 @@ function renderProducts() {
         <h3>${p.name_en}</h3>
         <p>RM ${p.price}</p>
         <button onclick="viewDetail(${p.id})">View Details</button>
+        <button onclick="addToCart(${p.id})">Add to Cart</button>
       </div>
     `;
 
