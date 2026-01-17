@@ -66,22 +66,32 @@ body {
   color: #fff;
 }
 
-/* Grid */
+/* Grid（关键：两列）*/
 .grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 22px;
+  grid-template-columns: repeat(2, 1fr); /* 左右两列 */
+  gap: 18px;
   padding: 20px;
 }
 
+/* 商品卡片 */
 .card {
   cursor: pointer;
   border: 1px solid #f0f0f0;
   padding: 10px;
+  background: #fff;
+  transition: transform .2s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
 }
 
 .card img {
   width: 100%;
+  height: 240px; /* 固定高度，保证左右一致 */
+  object-fit: cover;
 }
 
 .info {
@@ -94,6 +104,7 @@ body {
   border: 1px solid #111;
   background: #fff;
   cursor: pointer;
+  font-weight: 600;
 }
 
 /* Cart */
