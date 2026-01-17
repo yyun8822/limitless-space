@@ -2,6 +2,15 @@ let products = [];
 let cart = [];
 let currentCategory = "All";
 
+function loadCart() {
+  const stored = localStorage.getItem("ls_cart");
+  cart = stored ? JSON.parse(stored) : [];
+}
+
+function saveCart() {
+  localStorage.setItem("ls_cart", JSON.stringify(cart));
+}
+
 async function loadProducts() {
   const response = await fetch("products.json");
   products = await response.json();
@@ -15,8 +24,8 @@ function toggleMenu() {
 }
 
 function toggleCart() {
-  const cart = document.getElementById("cart");
-  cart.style.display = cart.style.display === "block" ? "none" : "block";
+  const cartEl = document.getElementById("cart");
+  cartEl.style.display = cartEl.style.display === "block" ? "none" : "block";
 }
 
 function renderProducts() {
@@ -36,7 +45,7 @@ function renderProducts() {
     card.className = "card";
 
     card.innerHTML = `
-      <img src="${p.images.default}" alt="${p.name_en}" />
+      <img src="${p.images[p.colors[0]]}" alt="${p.name_en}" />
       <div class="info">
         <h3>${p.name_en}</h3>
         <p>RM ${p.price}</p>
@@ -54,9 +63,7 @@ function setCategory(cat) {
 
   document.querySelectorAll(".menu button").forEach((btn) => {
     btn.classList.remove("active");
-    if (btn.innerText === cat) {
-      btn.classList.add("active");
-    }
+    if (btn.innerText === cat) btn.classList.add("active");
   });
 
   renderProducts();
@@ -68,7 +75,7 @@ function viewDetail(id) {
 
 function addToCart(id) {
   const product = products.find(p => p.id === id);
-  const exists = cart.find(c => c.id === id);
+  const exists = cart.find(c => c.id === id && c.color === product.colors[0]);
   if (exists) {
     exists.qty++;
   } else {
@@ -76,9 +83,12 @@ function addToCart(id) {
       id: product.id,
       name_en: product.name_en,
       price: product.price,
+      color: product.colors[0],
+      size: product.sizes[0],
       qty: 1
     });
   }
+  saveCart();
   renderCart();
 }
 
@@ -105,7 +115,7 @@ function renderCart() {
     const div = document.createElement("div");
     div.className = "item";
     div.innerHTML = `
-      <span>${item.name_en}</span>
+      <span>${item.name_en} (${item.color}/${item.size})</span>
       <span>RM ${item.price} x ${item.qty}</span>
       <span>
         <button onclick="changeQty(${index}, -1)">-</button>
@@ -123,11 +133,13 @@ function renderCart() {
 function changeQty(index, delta) {
   cart[index].qty += delta;
   if (cart[index].qty <= 0) cart[index].qty = 1;
+  saveCart();
   renderCart();
 }
 
 function removeItem(index) {
   cart.splice(index, 1);
+  saveCart();
   renderCart();
 }
 
@@ -136,13 +148,15 @@ function checkout() {
   let total = 0;
 
   cart.forEach((item, index) => {
-    message += `${index + 1}. ${item.name_en} - RM ${item.price} x ${item.qty}%0A`;
+    message += `${index + 1}. ${item.name_en} (${item.color}/${item.size}) - RM ${item.price} x ${item.qty}%0A`;
     total += item.price * item.qty;
   });
 
   message += `Total: RM ${total}%0A`;
   message += "Please send me the shipping address.";
+
   window.open(`https://wa.me/60173988114?text=${message}`, "_blank");
 }
 
+loadCart();
 loadProducts();
