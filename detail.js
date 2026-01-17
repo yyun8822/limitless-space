@@ -1,76 +1,99 @@
 let products = [];
-let cart = [];
-let selectedProduct = null;
-let selectedColor = "";
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let selectedProduct;
+let selectedColor;
 let qty = 1;
-let imgIndex = 0;
 
-function loadProducts() {
-  fetch("products.json")
-    .then(res => res.json())
-    .then(data => {
-      products = data;
-      loadCart();
-      loadDetail();
-    });
+async function loadProducts() {
+  const response = await fetch("products.json");
+  products = await response.json();
+  loadDetail();
+  updateCartCount();
 }
 
-function loadCart() {
-  const stored = localStorage.getItem("cart");
-  if (stored) cart = JSON.parse(stored);
+function toggleMenu() {
+  document.getElementById("menu").classList.toggle("open");
+}
+
+function toggleCart() {
+  document.getElementById("cartModal").classList.toggle("open");
+  renderCart();
+}
+
+function updateCartCount() {
+  document.getElementById("cartCount").innerText = cart.length;
 }
 
 function loadDetail() {
   const params = new URLSearchParams(window.location.search);
-  const id = params.get("id");
-  selectedProduct = products.find(p => p.id == id);
-  if (!selectedProduct) return;
+  const id = parseInt(params.get("id"));
+  selectedProduct = products.find(p => p.id === id);
 
-  selectedColor = selectedProduct.colors[0];
-  imgIndex = 0;
-
-  renderDetail();
-}
-
-function renderDetail() {
   const detail = document.getElementById("detail");
   detail.innerHTML = `
-    <img id="detailImg" class="detail-img" src="${selectedProduct.images[selectedColor]}" alt="${selectedProduct.name_en}">
-    <div class="detail-info">
-      <h2>${selectedProduct.name_en}</h2>
-      <p>RM ${selectedProduct.price}</p>
-
-      <div class="color-row">
-        ${selectedProduct.colors.map(c => `<button class="color-btn" onclick="changeColor('${c}')">${c}</button>`).join("")}
+    <div class="detailBox">
+      <div class="slider" id="slider"></div>
+      <div class="info">
+        <h2>${selectedProduct.name_en}</h2>
+        <p>RM ${selectedProduct.price}</p>
+        <div id="colorDots"></div>
+        <div class="qty">
+          <button onclick="changeQty(-1)">-</button>
+          <span id="qtyText">${qty}</span>
+          <button onclick="changeQty(1)">+</button>
+        </div>
+        <button onclick="addToCart()">Add to Cart</button>
       </div>
-
-      <div class="qty-row">
-        <button onclick="changeQty(-1)">-</button>
-        <span id="qtyText">${qty}</span>
-        <button onclick="changeQty(1)">+</button>
-      </div>
-
-      <div class="slider-row">
-        <button onclick="prevImg()">←</button>
-        <button onclick="nextImg()">→</button>
-      </div>
-
-      <button class="add-btn" onclick="addToCart()">Add to Cart</button>
     </div>
   `;
 
-  updateImage();
+  renderSlider();
+  renderColorDots();
 }
 
-function changeColor(color) {
-  selectedColor = color;
-  imgIndex = 0;
-  updateImage();
+function renderSlider() {
+  const slider = document.getElementById("slider");
+  slider.innerHTML = "";
+
+  selectedProduct.colors.forEach(color => {
+    const img = document.createElement("img");
+    img.src = selectedProduct.images[color];
+    img.className = "slide";
+    slider.appendChild(img);
+  });
+
+  // 简单滑动
+  let startX = 0;
+  let currentIndex = 0;
+
+  slider.addEventListener("touchstart", (e) => {
+    startX = e.touches[0].clientX;
+  });
+
+  slider.addEventListener("touchend", (e) => {
+    const endX = e.changedTouches[0].clientX;
+    if (endX - startX > 50) {
+      currentIndex = Math.max(0, currentIndex - 1);
+    } else if (startX - endX > 50) {
+      currentIndex = Math.min(selectedProduct.colors.length - 1, currentIndex + 1);
+    }
+    slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+  });
 }
 
-function updateImage() {
-  const img = document.getElementById("detailImg");
-  img.src = selectedProduct.images[selectedColor];
+function renderColorDots() {
+  const colorDots = document.getElementById("colorDots");
+  colorDots.innerHTML = "";
+
+  selectedProduct.colors.forEach((color, index) => {
+    const dot = document.createElement("span");
+    dot.className = "colorDot";
+    dot.style.background = color.toLowerCase();
+    dot.onclick = () => {
+      document.getElementById("slider").style.transform = `translateX(-${index * 100}%)`;
+    };
+    colorDots.appendChild(dot);
+  });
 }
 
 function changeQty(delta) {
@@ -80,31 +103,57 @@ function changeQty(delta) {
 }
 
 function addToCart() {
-  const item = cart.find(c => c.id === selectedProduct.id && c.color === selectedColor);
-  if (item) item.qty += qty;
-  else cart.push({
+  cart.push({
     id: selectedProduct.id,
     name_en: selectedProduct.name_en,
     price: selectedProduct.price,
-    color: selectedColor,
-    size: selectedProduct.sizes[0],
-    qty
+    qty: qty
   });
-
   localStorage.setItem("cart", JSON.stringify(cart));
+  updateCartCount();
   alert("Added to cart!");
 }
 
-function prevImg() {
-  imgIndex = (imgIndex - 1 + selectedProduct.colors.length) % selectedProduct.colors.length;
-  selectedColor = selectedProduct.colors[imgIndex];
-  updateImage();
+function renderCart() {
+  const cartItems = document.getElementById("cartItems");
+  cartItems.innerHTML = "";
+
+  cart.forEach((item, index) => {
+    const div = document.createElement("div");
+    div.className = "item";
+    div.innerHTML = `
+      <span>${item.name_en}</span>
+      <span>RM ${item.price} x ${item.qty}</span>
+      <span>
+        <button onclick="changeQtyCart(${index}, -1)">-</button>
+        <button onclick="changeQtyCart(${index}, 1)">+</button>
+        <button onclick="removeItem(${index})">Delete</button>
+      </span>
+    `;
+    cartItems.appendChild(div);
+  });
+
+  const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+  document.getElementById("cartTotal").innerText = `Total: RM ${total}`;
 }
 
-function nextImg() {
-  imgIndex = (imgIndex + 1) % selectedProduct.colors.length;
-  selectedColor = selectedProduct.colors[imgIndex];
-  updateImage();
+function changeQtyCart(index, delta) {
+  cart[index].qty += delta;
+  if (cart[index].qty < 1) cart[index].qty = 1;
+  localStorage.setItem("cart", JSON.stringify(cart));
+  renderCart();
+  updateCartCount();
+}
+
+function removeItem(index) {
+  cart.splice(index, 1);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  renderCart();
+  updateCartCount();
+}
+
+function checkout() {
+  alert("Checkout feature not implemented yet");
 }
 
 loadProducts();
