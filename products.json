@@ -7,9 +7,8 @@
     "price": 49,
     "images": {
       "default": "https://raw.githubusercontent.com/yyun8822/limitless-space/main/images/0dcad8bc5bf341143b0b4dd14b35855f.jpeg",
-      "Black": "https://raw.githubusercontent.com/yyun8822/limitless-space/main/images/tee-black.jpeg",
-      "White": "https://raw.githubusercontent.com/yyun8822/limitless-space/main/images/tee-white.jpeg",
-      "Grey": "https://raw.githubusercontent.com/yyun8822/limitless-space/main/images/tee-grey.jpeg"
+      "Green": "https://raw.githubusercontent.com/yyun8822/limitless-space/main/images/ad2382dad8b51c522930b8f918dd6b8f.jpeg",
+      "Black": "https://raw.githubusercontent.com/yyun8822/limitless-space/main/images/",  
     },
     "colors": ["Black", "White", "Grey"],
     "sizes": ["S", "M", "L", "XL"]
