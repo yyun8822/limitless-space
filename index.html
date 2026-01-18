@@ -1,40 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Limitless Space</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Limitless Space</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
+
 <header class="header">
   <div class="left">
-    <div class="hamburger" onclick="toggleMenu()">☰</div>
+    <div class="hamburger" onclick="openMenu()">☰</div>
     <div class="logo">LIMITLESS SPACE</div>
   </div>
   <div class="cart-icon" onclick="toggleCart()">🛒 <span id="cartCount">0</span></div>
 </header>
 
 <!-- 遮罩 -->
-<div id="overlay" onclick="toggleMenu()"></div>
+<div id="overlay" class="overlay" onclick="closeMenu()"></div>
 
-<!-- 菜单 -->
+<!-- 汉堡菜单 -->
 <aside id="menu" class="menu">
   <div class="menu-header">
     <span>Menu</span>
-    <button onclick="toggleMenu()">← Back</button>
+    <button onclick="closeMenu()">← Back</button>
   </div>
 
-  <input id="searchInput" placeholder="Search..." oninput="renderProducts()">
+  <input id="searchInput" type="text" placeholder="Search..." oninput="renderProducts()" />
 
   <button class="cat-btn active" onclick="setCategory('All')">All</button>
   <button class="cat-btn" onclick="setCategory('T-Shirt')">T-Shirt</button>
   <button class="cat-btn" onclick="setCategory('Hoodie')">Hoodie</button>
+  <button class="cat-btn" onclick="setCategory('Dress')">Dress</button>
+  <button class="cat-btn" onclick="setCategory('Jacket')">Jacket</button>
+  <button class="cat-btn" onclick="setCategory('Shorts')">Shorts</button>
+  <button class="cat-btn" onclick="setCategory('Pants')">Pants</button>
 </aside>
 
 <main>
-  <section id="productList" class="grid"></section>
+  <section class="grid" id="productList"></section>
 </main>
 
 <!-- Cart -->
@@ -45,7 +49,6 @@
   </div>
   <div id="cartItems"></div>
   <div id="cartTotal"></div>
-  <button class="checkout" onclick="checkout()">Checkout</button>
 </div>
 
 <script src="main.js"></script>
