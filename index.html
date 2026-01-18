@@ -7,23 +7,20 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header class="header">
-    <div class="left">
-      <div class="hamburger" onclick="toggleMenu()">☰</div>
-      <div class="logo">LIMITLESS SPACE</div>
-    </div>
 
-    <!-- 购物车图标（固定可见） -->
-    <div class="cart-icon" onclick="toggleCart()">
-      🛒 <span id="cartCount">0</span>
-    </div>
-  </header>
+<header class="header">
+  <div class="left">
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+    <div class="logo">LIMITLESS SPACE</div>
+  </div>
+  <div class="cart-icon" onclick="toggleCart()">🛒 <span id="cartCount">0</span></div>
+</header>
 
-  <!-- 汉堡菜单（覆盖 40%） -->
-  <div id="menu" class="menu">
+<!-- 汉堡菜单 -->
+<aside id="menu" class="menu">
   <div class="menu-header">
     <span>Menu</span>
-    <button onclick="toggleMenu()">✕</button>
+    <button onclick="toggleMenu()">← Back</button>
   </div>
 
   <input id="searchInput" type="text" placeholder="Search..." oninput="renderProducts()" />
@@ -32,34 +29,28 @@
   <button class="cat-btn" onclick="setCategory('T-Shirt')">T-Shirt</button>
   <button class="cat-btn" onclick="setCategory('Hoodie')">Hoodie</button>
   <button class="cat-btn" onclick="setCategory('Dress')">Dress</button>
-  <button class="cat-btn" onclick="setCategory('Jacket')">Jacket</button>
-  <button class="cat-btn" onclick="setCategory('Shorts')">Shorts</button>
-  <button class="cat-btn" onclick="setCategory('Pants')">Pants</button>
+</aside>
+
+<main>
+  <section id="productList" class="grid"></section>
+</main>
+
+<!-- 购物车 -->
+<div id="cart" class="cart">
+  <div class="cart-header">
+    <span>Cart</span>
+    <button onclick="toggleCart()">✕</button>
+  </div>
+  <div id="cartItems"></div>
+  <div id="cartTotal"></div>
+  <button id="checkoutBtn" class="checkout" onclick="checkout()">Checkout</button>
 </div>
 
-  <main>
-    <section class="grid" id="productList"></section>
-  </main>
+<footer class="footer">
+  <a href="https://wa.me/60173988114" target="_blank">WhatsApp</a>
+  <a href="https://instagram.com/limitless_space8" target="_blank">Instagram</a>
+</footer>
 
-  <!-- 购物车弹窗 -->
-  <div id="cart" class="cart">
-    <div class="cart-header">
-      <div>Cart</div>
-      <button onclick="toggleCart()">Close</button>
-    </div>
-    <div id="cartItems"></div>
-    <div id="cartTotal"></div>
-    <button id="checkoutBtn" class="checkout" onclick="checkout()">Checkout</button>
-  </div>
-
-  <!-- 加入购物车小提示 -->
-  <div id="toast" class="toast">✓ Added</div>
-
-  <footer class="footer">
-    <a href="https://wa.me/60173988114" target="_blank">WhatsApp</a>
-    <a href="https://instagram.com/limitless_space8" target="_blank">Instagram</a>
-  </footer>
-
-  <script src="main.js"></script>
+<script src="main.js"></script>
 </body>
 </html>
