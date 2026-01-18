@@ -1,24 +1,54 @@
-const id=new URLSearchParams(location.search).get("id");
-let index=0,imgs=[];
+let products = [];
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let idx = 0;
+let product;
 
-fetch("products.json").then(r=>r.json()).then(p=>{
-  const prod=p.find(x=>x.id==id);
-  imgs=Object.values(prod.images);
-  render();
-  setInterval(next,3000);
-});
+fetch("products.json")
+  .then(r=>r.json())
+  .then(d=>{
+    products = d;
+    const id = new URLSearchParams(location.search).get("id");
+    product = products.find(p=>p.id==id);
+    render();
+    autoSlide();
+  });
 
-function render(){
-  slider.innerHTML=`<img src="${imgs[index]}">`;
-  dots.innerHTML=imgs.map((_,i)=>`<span ${i==index?'style="font-weight:bold"':''}>•</span>`).join("");
+function render() {
+  detail.innerHTML = `
+    <img id="img" class="detail-img" src="${product.images[product.colors[idx]]}">
+    <h2>${product.name_en}</h2>
+    <p>RM ${product.price}</p>
+    <div class="color-row">
+      ${product.colors.map((c,i)=>`
+        <div class="color-btn" style="background:${c}"
+          onclick="setColor(${i})"></div>`).join("")}
+    </div>
+    <button onclick="add()">Add to Cart</button>
+  `;
+
+  swipe();
 }
-function next(){index=(index+1)%imgs.length;render();}
 
-let startX=0;
-slider.addEventListener("touchstart",e=>startX=e.touches[0].clientX);
-slider.addEventListener("touchend",e=>{
-  const dx=e.changedTouches[0].clientX-startX;
-  if(dx>50)index=(index-1+imgs.length)%imgs.length;
-  if(dx<-50)index=(index+1)%imgs.length;
-  render();
-});
+function setColor(i){ idx=i; update(); }
+function update(){ img.src = product.images[product.colors[idx]]; }
+
+function autoSlide(){
+  setInterval(()=>{ idx=(idx+1)%product.colors.length; update(); },4000);
+}
+
+function swipe(){
+  let x;
+  img.ontouchstart=e=>x=e.touches[0].clientX;
+  img.ontouchend=e=>{
+    if(x-e.changedTouches[0].clientX>50) idx++;
+    if(e.changedTouches[0].clientX-x>50) idx--;
+    idx=(idx+product.colors.length)%product.colors.length;
+    update();
+  }
+}
+
+function add(){
+  cart.push({id:product.id,qty:1});
+  localStorage.setItem("cart",JSON.stringify(cart));
+  alert("Added");
+}
