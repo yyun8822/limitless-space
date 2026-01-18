@@ -128,3 +128,33 @@ body {
   font-weight: 700;
   cursor: pointer;
 }
+
+.menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100vh;
+  background: #fff;
+  padding: 16px;
+  display: none;
+  z-index: 999;
+}
+
+.menu.show {
+  display: block;
+}
+
+.menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.menu-header button {
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+}
