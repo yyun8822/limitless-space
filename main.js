@@ -2,6 +2,14 @@ let products = [];
 let cart = [];
 let currentCategory = "All";
 
+const colorMap = {
+  Black: "#000",
+  White: "#fff",
+  Grey: "#aaa",
+  Gray: "#aaa",
+  Green: "#4f7f52"
+};
+
 function loadProducts() {
   fetch("products.json")
     .then(res => res.json())
@@ -28,33 +36,32 @@ function renderProducts() {
   const list = document.getElementById("productList");
   list.innerHTML = "";
 
-  const searchText = document.getElementById("searchInput").value.toLowerCase();
+  const search = document.getElementById("searchInput").value.toLowerCase();
 
-  const filtered = products.filter(p => {
-    const matchCat = currentCategory === "All" ? true : p.category === currentCategory;
-    const matchSearch =
-      p.name_en.toLowerCase().includes(searchText) ||
-      p.name_zh.includes(searchText);
-    return matchCat && matchSearch;
-  });
+  products
+    .filter(p =>
+      (currentCategory === "All" || p.category === currentCategory) &&
+      p.name_en.toLowerCase().includes(search)
+    )
+    .forEach(p => {
+      const card = document.createElement("div");
+      card.className = "card";
 
-  filtered.forEach(p => {
-    const card = document.createElement("div");
-    card.className = "card";
-
-    card.innerHTML = `
-      <img src="${p.images[p.colors[0]]}" alt="${p.name_en}">
-      <div class="info">
-        <h3>${p.name_en}</h3>
-        <p>RM ${p.price}</p>
-        <div class="btn-row">
+      card.innerHTML = `
+        <img src="${p.images[p.colors[0]]}">
+        <div class="info">
+          <div class="color-row">
+            ${p.colors.map(c => `
+              <span class="color-dot" style="background:${colorMap[c] || "#ccc"}"></span>
+            `).join("")}
+          </div>
+          <h3>${p.name_en}</h3>
+          <p>RM ${p.price}</p>
           <button class="view-btn" onclick="viewDetail(${p.id})">View Detail</button>
-          <button class="add-btn" onclick="addToCart(${p.id})">Add to Cart</button>
         </div>
-      </div>
-    `;
-    list.appendChild(card);
-  });
+      `;
+      list.appendChild(card);
+    });
 
   updateCartCount();
 }
@@ -63,94 +70,49 @@ function viewDetail(id) {
   window.location.href = `product-detail.html?id=${id}`;
 }
 
-function addToCart(id) {
-  const product = products.find(p => p.id === id);
-  const item = cart.find(c => c.id === id && c.color === product.colors[0]);
-
-  if (item) item.qty++;
-  else cart.push({
-    id,
-    name_en: product.name_en,
-    price: product.price,
-    color: product.colors[0],
-    qty: 1
-  });
-
-  saveCart();
-  renderCart();
-  updateCartCount();
-  showToast();
-}
-
+/* Cart */
 function toggleCart() {
   document.getElementById("cart").classList.toggle("show");
   renderCart();
 }
 
 function renderCart() {
-  const cartItems = document.getElementById("cartItems");
-  const cartTotal = document.getElementById("cartTotal");
-  const checkoutBtn = document.getElementById("checkoutBtn");
-
-  cartItems.innerHTML = "";
-
-  if (cart.length === 0) {
-    cartItems.innerHTML = "<p>Cart is empty</p>";
-    cartTotal.innerHTML = "";
-    checkoutBtn.style.display = "none";
-    return;
-  }
+  const items = document.getElementById("cartItems");
+  const totalEl = document.getElementById("cartTotal");
+  items.innerHTML = "";
 
   let total = 0;
-  cart.forEach((item, idx) => {
+  cart.forEach((item, i) => {
     total += item.price * item.qty;
-    const div = document.createElement("div");
-    div.className = "item";
-    div.innerHTML = `
-      <div>
-        <div>${item.name_en}</div>
-        <div>${item.color}</div>
-      </div>
-      <div>
-        <div>RM ${item.price} x ${item.qty}</div>
-        <div>
-          <button onclick="changeQty(${idx}, -1)">-</button>
-          <button onclick="changeQty(${idx}, 1)">+</button>
-          <button onclick="removeItem(${idx})">Delete</button>
-        </div>
+    items.innerHTML += `
+      <div class="item">
+        <span>${item.name_en}</span>
+        <span>
+          <button onclick="changeQty(${i},-1)">-</button>
+          ${item.qty}
+          <button onclick="changeQty(${i},1)">+</button>
+        </span>
       </div>
     `;
-    cartItems.appendChild(div);
   });
 
-  cartTotal.innerHTML = `<p>Total: RM ${total}</p>`;
-  checkoutBtn.style.display = "block";
+  totalEl.innerText = `Total: RM ${total}`;
 }
 
-function changeQty(idx, delta) {
-  cart[idx].qty += delta;
-  if (cart[idx].qty <= 0) cart[idx].qty = 1;
-  saveCart();
-  renderCart();
-  updateCartCount();
-}
-
-function removeItem(idx) {
-  cart.splice(idx, 1);
+function changeQty(i, d) {
+  cart[i].qty += d;
+  if (cart[i].qty < 1) cart[i].qty = 1;
   saveCart();
   renderCart();
   updateCartCount();
 }
 
 function checkout() {
-  let msg = "Order details:%0A";
-  let total = 0;
-  cart.forEach((item, i) => {
-    msg += `${i+1}. ${item.name_en} (${item.color}) x ${item.qty} - RM ${item.price}%0A`;
-    total += item.price * item.qty;
+  let msg = "Order:%0A";
+  cart.forEach(c => {
+    msg += `${c.name_en} x ${c.qty}%0A`;
   });
-  msg += `Total: RM ${total}%0A`;
-  window.open(`https://wa.me/60173988114?text=${msg}`, "_blank");
+  window.open(`https://wa.me/60173988114?text=${msg}`);
 }
 
 function saveCart() {
@@ -160,20 +122,11 @@ function saveCart() {
 function loadCart() {
   const stored = localStorage.getItem("cart");
   if (stored) cart = JSON.parse(stored);
-  updateCartCount();
 }
 
 function updateCartCount() {
-  const count = cart.reduce((sum, item) => sum + item.qty, 0);
-  document.getElementById("cartCount").innerText = count;
-}
-
-function showToast() {
-  const toast = document.getElementById("toast");
-  toast.style.display = "block";
-  setTimeout(() => {
-    toast.style.display = "none";
-  }, 800);
+  document.getElementById("cartCount").innerText =
+    cart.reduce((s, i) => s + i.qty, 0);
 }
 
 loadProducts();
