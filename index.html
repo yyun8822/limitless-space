@@ -21,15 +21,21 @@
 
   <!-- 汉堡菜单（覆盖 40%） -->
   <div id="menu" class="menu">
-    <input id="searchInput" type="text" placeholder="Search..." oninput="renderProducts()" />
-    <button class="cat-btn active" onclick="setCategory('All')">All</button>
-    <button class="cat-btn" onclick="setCategory('T-Shirt')">T-Shirt</button>
-    <button class="cat-btn" onclick="setCategory('Hoodie')">Hoodie</button>
-    <button class="cat-btn" onclick="setCategory('Dress')">Dress</button>
-    <button class="cat-btn" onclick="setCategory('Jacket')">Jacket</button>
-    <button class="cat-btn" onclick="setCategory('Shorts')">Shorts</button>
-    <button class="cat-btn" onclick="setCategory('Pants')">Pants</button>
+  <div class="menu-header">
+    <span>Menu</span>
+    <button onclick="toggleMenu()">✕</button>
   </div>
+
+  <input id="searchInput" type="text" placeholder="Search..." oninput="renderProducts()" />
+
+  <button class="cat-btn active" onclick="setCategory('All')">All</button>
+  <button class="cat-btn" onclick="setCategory('T-Shirt')">T-Shirt</button>
+  <button class="cat-btn" onclick="setCategory('Hoodie')">Hoodie</button>
+  <button class="cat-btn" onclick="setCategory('Dress')">Dress</button>
+  <button class="cat-btn" onclick="setCategory('Jacket')">Jacket</button>
+  <button class="cat-btn" onclick="setCategory('Shorts')">Shorts</button>
+  <button class="cat-btn" onclick="setCategory('Pants')">Pants</button>
+</div>
 
   <main>
     <section class="grid" id="productList"></section>
