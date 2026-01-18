@@ -30,8 +30,8 @@
     "category": "T-Shirt",
     "price": 69,
     "images": {
-      "Black": "https://raw.githubusercontent.com/yyun8822/limitless-space/main/images/tee-grey.jpeg",
-      "White": "https://raw.githubusercontent.com/yyun8822/limitless-space/main/images/tee-grey.jpeg"
+      "Black": "https://raw.githubusercontent.com/yyun8822/limitless-space/main/images/f816ff95422de77cdf30b63b206e2ab6.jpeg",
+      "White": "https://raw.githubusercontent.com/yyun8822/limitless-space/main/images/6536bb9e5bf3f817135ad147786bd524.jpeg"
     },
     "colors": ["Black", "White"],
     "sizes": ["S", "M", "L", "XL"]
