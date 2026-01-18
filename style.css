@@ -3,26 +3,29 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  color: #111;
   background: #fff;
-  padding-bottom: env(safe-area-inset-bottom);
+  color: #111;
 }
 
 /* Header */
 .header {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 40px 1fr 40px;
+  align-items: center;
   padding: 16px;
 }
 
 .logo {
-  font-weight: 700;
-  letter-spacing: 4px;
+  text-align: center;
+  font-weight: 800;
+  letter-spacing: 6px;
+  font-size: 18px;
 }
 
-.hamburger { font-size: 22px; cursor: pointer; }
-
-.cart-icon { cursor: pointer; }
+.hamburger, .cart-icon {
+  cursor: pointer;
+  font-size: 20px;
+}
 
 /* Grid */
 .grid {
@@ -38,25 +41,23 @@ body {
   object-fit: contain;
 }
 
-.card h3 { font-size: 15px; margin: 6px 0; }
+.card h3 {
+  font-size: 14px;
+  margin: 6px 0;
+}
 
 /* Color dots */
 .color-row {
   display: flex;
   gap: 8px;
-  margin-top: 6px;
 }
 
 .color-dot {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
-  border: 1px solid #ccc;
+  border: 1px solid #aaa;
   cursor: pointer;
-}
-
-.color-dot.active {
-  border: 2px solid #111;
 }
 
 /* Menu */
@@ -69,7 +70,7 @@ body {
   background: #fff;
   z-index: 100;
   padding: 16px;
-  transition: left .3s;
+  transition: .3s;
 }
 
 .menu.show { left: 0; }
@@ -80,6 +81,22 @@ body {
   margin-bottom: 12px;
 }
 
+.menu input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+}
+
+.menu-cats button {
+  width: 100%;
+  padding: 12px 0;
+  border: none;
+  background: none;
+  text-align: left;
+  font-size: 16px;
+}
+
+/* Overlay */
 .overlay {
   display: none;
   position: fixed;
@@ -87,21 +104,38 @@ body {
   background: rgba(0,0,0,.4);
   z-index: 90;
 }
-
 .overlay.show { display: block; }
 
 /* Cart */
 .cart {
   position: fixed;
-  right: 12px;
+  right: 10px;
   top: 70px;
-  width: 280px;
+  width: 300px;
   background: #fff;
   padding: 12px;
   display: none;
+  border: 1px solid #eee;
 }
 
 .cart.show { display: block; }
+
+.cart-item {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.cart-item img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.qty {
+  display: flex;
+  gap: 6px;
+}
 
 /* Detail */
 .detail-img {
@@ -110,10 +144,8 @@ body {
   object-fit: contain;
 }
 
-.color-btn {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  margin-right: 10px;
-  cursor: pointer;
+.qty-row {
+  display: flex;
+  gap: 10px;
+  margin: 12px 0;
 }
