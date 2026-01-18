@@ -2,6 +2,16 @@ let products = [];
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let currentCategory = "All";
 
+const productList = document.getElementById("productList");
+const cartEl = document.getElementById("cart");
+const cartItems = document.getElementById("cartItems");
+const cartTotal = document.getElementById("cartTotal");
+const cartCount = document.getElementById("cartCount");
+
+const menu = document.getElementById("menu");
+const overlay = document.getElementById("overlay");
+const searchInput = document.getElementById("searchInput");
+
 fetch("products.json")
   .then(r => r.json())
   .then(d => {
@@ -37,8 +47,7 @@ function renderProducts() {
     .forEach(p => {
       const div = document.createElement("div");
       div.className = "card";
-      div.onclick = () =>
-        location.href = `product-detail.html?id=${p.id}`;
+      div.onclick = () => location.href = `product-detail.html?id=${p.id}`;
 
       div.innerHTML = `
         <img id="img-${p.id}" src="${p.images[p.colors[0]]}">
@@ -94,6 +103,6 @@ function updateCart() {
 
 function chg(i,d){
   cart[i].qty += d;
-  if(cart[i].qty<1)cart[i].qty=1;
+  if(cart[i].qty<1) cart[i].qty = 1;
   updateCart();
 }
