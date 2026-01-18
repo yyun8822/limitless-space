@@ -18,10 +18,10 @@
     "price": 159,
     "images": {
       "Black": "https://raw.githubusercontent.com/yyun8822/limitless-space/main/images/8f3a900300cf21679a5c4c4e86beb2c3.jpeg",
-      "Light Blue": "https://raw.githubusercontent.com/yyun8822/limitless-space/main/images/e7add161bb4a433a62a24151ecb9c3f9.jpeg",
+      "SkyBlue": "https://raw.githubusercontent.com/yyun8822/limitless-space/main/images/e7add161bb4a433a62a24151ecb9c3f9.jpeg",
       "White": "https://raw.githubusercontent.com/yyun8822/limitless-space/main/images/c3fc32fd338cab1ad3f2f118f9a10f33.jpeg"
     },
-    "colors": ["Black", "Light Blue", "White"],
+    "colors": ["Black", "SkyBlue", "White"],
     "sizes": ["S", "M", "L", "XL"]
   },
   {
