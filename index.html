@@ -9,32 +9,37 @@
 <body>
 
 <header class="header">
-  <div class="left">
-    <div class="hamburger" onclick="openMenu()">☰</div>
-    <div class="logo">LIMITLESS SPACE</div>
+  <div class="hamburger" onclick="openMenu()">☰</div>
+  <div class="logo">LIMITLESS SPACE</div>
+  <div class="cart-icon" onclick="toggleCart()">
+    🛒 <span id="cartCount">0</span>
   </div>
-  <div class="cart-icon" onclick="toggleCart()">🛒 <span id="cartCount">0</span></div>
 </header>
 
-<!-- 遮罩 -->
 <div id="overlay" class="overlay" onclick="closeMenu()"></div>
 
-<!-- 汉堡菜单 -->
 <aside id="menu" class="menu">
   <div class="menu-header">
     <span>Menu</span>
     <button onclick="closeMenu()">← Back</button>
   </div>
 
-  <input id="searchInput" type="text" placeholder="Search..." oninput="renderProducts()" />
+  <input
+    id="searchInput"
+    type="text"
+    placeholder="Search..."
+    oninput="renderProducts()"
+  />
 
-  <button class="cat-btn active" onclick="setCategory('All')">All</button>
-  <button class="cat-btn" onclick="setCategory('T-Shirt')">T-Shirt</button>
-  <button class="cat-btn" onclick="setCategory('Hoodie')">Hoodie</button>
-  <button class="cat-btn" onclick="setCategory('Dress')">Dress</button>
-  <button class="cat-btn" onclick="setCategory('Jacket')">Jacket</button>
-  <button class="cat-btn" onclick="setCategory('Shorts')">Shorts</button>
-  <button class="cat-btn" onclick="setCategory('Pants')">Pants</button>
+  <div class="menu-cats">
+    <button onclick="setCategory('All')">All</button>
+    <button onclick="setCategory('T-Shirt')">T-Shirt</button>
+    <button onclick="setCategory('Hoodie')">Hoodie</button>
+    <button onclick="setCategory('Dress')">Dress</button>
+    <button onclick="setCategory('Jacket')">Jacket</button>
+    <button onclick="setCategory('Shorts')">Shorts</button>
+    <button onclick="setCategory('Pants')">Pants</button>
+  </div>
 </aside>
 
 <main>
