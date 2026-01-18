@@ -6,7 +6,16 @@ let qty = 1;
 let imgIndex = 0;
 let autoSlide;
 
-/* ===== Load ===== */
+/* 安全颜色映射（关键） */
+const colorMap = {
+  Black: "#000",
+  White: "#fff",
+  Grey: "#aaa",
+  Gray: "#aaa",
+  Red: "#c00",
+  Blue: "#0066cc"
+};
+
 function loadProducts() {
   fetch("products.json")
     .then(res => res.json())
@@ -35,7 +44,6 @@ function loadDetail() {
   renderDetail();
 }
 
-/* ===== Render ===== */
 function renderDetail() {
   const detail = document.getElementById("detail");
 
@@ -49,9 +57,13 @@ function renderDetail() {
       <p>RM ${selectedProduct.price}</p>
 
       <div class="color-row">
-        ${selectedProduct.colors.map(
-          c => `<button class="color-dot" style="background:${c}" onclick="changeColor('${c}')"></button>`
-        ).join("")}
+        ${selectedProduct.colors.map(c => `
+          <span 
+            class="color-dot" 
+            style="background:${colorMap[c] || '#ccc'}"
+            onclick="changeColor('${c}')">
+          </span>
+        `).join("")}
       </div>
 
       <div class="qty-row">
@@ -84,11 +96,11 @@ function renderCarousel() {
 }
 
 function updateCarousel() {
-  const track = document.getElementById("carouselTrack");
-  track.style.transform = `translateX(-${imgIndex * 100}%)`;
+  document.getElementById("carouselTrack")
+    .style.transform = `translateX(-${imgIndex * 100}%)`;
 }
 
-/* ===== Auto Slide ===== */
+/* 自动轮播 */
 function startAutoSlide() {
   clearInterval(autoSlide);
   autoSlide = setInterval(() => {
@@ -98,7 +110,7 @@ function startAutoSlide() {
   }, 3500);
 }
 
-/* ===== Swipe ===== */
+/* 手势滑动 */
 function enableSwipe() {
   const carousel = document.getElementById("carousel");
   let startX = 0;
@@ -114,16 +126,13 @@ function enableSwipe() {
   });
 }
 
-/* ===== Controls ===== */
 function prevImg() {
   imgIndex = (imgIndex - 1 + selectedProduct.colors.length) % selectedProduct.colors.length;
-  selectedColor = selectedProduct.colors[imgIndex];
   updateCarousel();
 }
 
 function nextImg() {
   imgIndex = (imgIndex + 1) % selectedProduct.colors.length;
-  selectedColor = selectedProduct.colors[imgIndex];
   updateCarousel();
 }
 
@@ -133,10 +142,9 @@ function changeColor(color) {
   updateCarousel();
 }
 
-/* ===== Qty & Cart ===== */
+/* Cart */
 function changeQty(delta) {
-  qty += delta;
-  if (qty < 1) qty = 1;
+  qty = Math.max(1, qty + delta);
   document.getElementById("qtyText").innerText = qty;
 }
 
@@ -153,7 +161,7 @@ function addToCart() {
   });
 
   localStorage.setItem("cart", JSON.stringify(cart));
-  alert("Added to cart!");
+  alert("Added to cart");
 }
 
 loadProducts();
