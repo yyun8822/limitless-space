@@ -1,21 +1,19 @@
 let products = [];
-let cart = [];
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 let currentCategory = "All";
 
 fetch("products.json")
-  .then(res => res.json())
-  .then(data => {
-    products = data;
-    cart = JSON.parse(localStorage.getItem("cart")) || [];
+  .then(r => r.json())
+  .then(d => {
+    products = d;
     renderProducts();
-    updateCartCount();
+    updateCart();
   });
 
 function openMenu() {
   menu.classList.add("show");
   overlay.classList.add("show");
 }
-
 function closeMenu() {
   menu.classList.remove("show");
   overlay.classList.remove("show");
@@ -23,33 +21,38 @@ function closeMenu() {
 
 function setCategory(cat) {
   currentCategory = cat;
+  closeMenu();
   renderProducts();
 }
 
 function renderProducts() {
-  const list = document.getElementById("productList");
-  list.innerHTML = "";
+  productList.innerHTML = "";
+  const search = searchInput.value.toLowerCase();
 
   products
-    .filter(p => currentCategory === "All" || p.category === currentCategory)
+    .filter(p =>
+      (currentCategory === "All" || p.category === currentCategory) &&
+      p.name_en.toLowerCase().includes(search)
+    )
     .forEach(p => {
-      const card = document.createElement("div");
-      card.className = "card";
-      card.onclick = () => location.href = `product-detail.html?id=${p.id}`;
+      const div = document.createElement("div");
+      div.className = "card";
+      div.onclick = () =>
+        location.href = `product-detail.html?id=${p.id}`;
 
-      card.innerHTML = `
+      div.innerHTML = `
         <img id="img-${p.id}" src="${p.images[p.colors[0]]}">
         <h3>${p.name_en}</h3>
         <p>RM ${p.price}</p>
         <div class="color-row">
-          ${p.colors.map(c => `
-            <div class="color-dot"
+          ${p.colors.map(c =>
+            `<div class="color-dot"
               style="background:${c}"
-              onclick="event.stopPropagation();switchImg(${p.id},'${c}')">
-            </div>`).join("")}
+              onclick="event.stopPropagation();switchImg(${p.id},'${c}')"></div>`
+          ).join("")}
         </div>
       `;
-      list.appendChild(card);
+      productList.appendChild(div);
     });
 }
 
@@ -58,7 +61,39 @@ function switchImg(id, color) {
   document.getElementById(`img-${id}`).src = p.images[color];
 }
 
-function updateCartCount() {
-  document.getElementById("cartCount").innerText =
-    cart.reduce((s,i)=>s+i.qty,0);
+function toggleCart() {
+  cartEl.classList.toggle("show");
+  updateCart();
+}
+
+function updateCart() {
+  cartItems.innerHTML = "";
+  let total = 0;
+
+  cart.forEach((i, idx) => {
+    total += i.price * i.qty;
+    cartItems.innerHTML += `
+      <div class="cart-item">
+        <img src="${i.img}">
+        <div>
+          <div>${i.name}</div>
+          <div class="qty">
+            <button onclick="chg(${idx},-1)">-</button>
+            ${i.qty}
+            <button onclick="chg(${idx},1)">+</button>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+
+  cartTotal.innerText = `Total RM ${total}`;
+  cartCount.innerText = cart.reduce((s,i)=>s+i.qty,0);
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+function chg(i,d){
+  cart[i].qty += d;
+  if(cart[i].qty<1)cart[i].qty=1;
+  updateCart();
 }
