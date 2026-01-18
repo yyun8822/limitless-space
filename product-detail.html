@@ -1,14 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Detail</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<div class="slider" id="slider"></div>
-<div id="dots"></div>
+<header class="header">
+  <div class="left">
+    <a href="index.html" class="back">← Back</a>
+    <div class="logo">LIMITLESS SPACE</div>
+  </div>
+  <div class="cart-icon" onclick="toggleCart()">🛒 <span id="cartCount">0</span></div>
+</header>
+
+<main class="detail-page">
+  <div id="detail"></div>
+</main>
+
+<div id="cart" class="cart">
+  <div class="cart-header">
+    <span>Cart</span>
+    <button onclick="toggleCart()">✕</button>
+  </div>
+  <div id="cartItems"></div>
+  <div id="cartTotal"></div>
+</div>
 
 <script src="detail.js"></script>
 </body>
