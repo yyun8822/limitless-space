@@ -1,54 +1,52 @@
-let products = [];
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-let idx = 0;
-let product;
+let products=[],cart=JSON.parse(localStorage.getItem("cart"))||[];
+let qty=1,idx=0,p;
 
-fetch("products.json")
-  .then(r=>r.json())
-  .then(d=>{
-    products = d;
-    const id = new URLSearchParams(location.search).get("id");
-    product = products.find(p=>p.id==id);
-    render();
-    autoSlide();
-  });
+fetch("products.json").then(r=>r.json()).then(d=>{
+  products=d;
+  p=products.find(x=>x.id==new URLSearchParams(location.search).get("id"));
+  draw(); auto();
+});
 
-function render() {
-  detail.innerHTML = `
-    <img id="img" class="detail-img" src="${product.images[product.colors[idx]]}">
-    <h2>${product.name_en}</h2>
-    <p>RM ${product.price}</p>
+function draw(){
+  detail.innerHTML=`
+    <img id="img" class="detail-img" src="${p.images[p.colors[0]]}">
+    <h2>${p.name_en}</h2>
+    <p>RM ${p.price}</p>
+
     <div class="color-row">
-      ${product.colors.map((c,i)=>`
-        <div class="color-btn" style="background:${c}"
-          onclick="setColor(${i})"></div>`).join("")}
+      ${p.colors.map((c,i)=>`
+        <div class="color-dot" style="background:${c}"
+          onclick="set(${i})"></div>`).join("")}
     </div>
+
+    <div class="qty-row">
+      <button onclick="q(-1)">-</button>
+      <span>${qty}</span>
+      <button onclick="q(1)">+</button>
+    </div>
+
     <button onclick="add()">Add to Cart</button>
   `;
-
   swipe();
 }
 
-function setColor(i){ idx=i; update(); }
-function update(){ img.src = product.images[product.colors[idx]]; }
-
-function autoSlide(){
-  setInterval(()=>{ idx=(idx+1)%product.colors.length; update(); },4000);
+function set(i){idx=i;img.src=p.images[p.colors[i]];}
+function q(d){qty=Math.max(1,qty+d);draw();}
+function add(){
+  cart.push({
+    id:p.id,name:p.name_en,price:p.price,
+    img:p.images[p.colors[idx]],qty
+  });
+  localStorage.setItem("cart",JSON.stringify(cart));
+  alert("Added");
 }
-
+function auto(){setInterval(()=>{idx=(idx+1)%p.colors.length;set(idx)},4000);}
 function swipe(){
   let x;
   img.ontouchstart=e=>x=e.touches[0].clientX;
   img.ontouchend=e=>{
-    if(x-e.changedTouches[0].clientX>50) idx++;
-    if(e.changedTouches[0].clientX-x>50) idx--;
-    idx=(idx+product.colors.length)%product.colors.length;
-    update();
+    idx+=x-e.changedTouches[0].clientX>0?1:-1;
+    idx=(idx+p.colors.length)%p.colors.length;
+    set(idx);
   }
-}
-
-function add(){
-  cart.push({id:product.id,qty:1});
-  localStorage.setItem("cart",JSON.stringify(cart));
-  alert("Added");
 }
