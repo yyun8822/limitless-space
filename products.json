@@ -18,10 +18,10 @@
     "price": 99,
     "images": {
       "Black": "https://raw.githubusercontent.com/yyun8822/limitless-space/main/images/tee-black.jpeg",
-      "sky blue": "https://raw.githubusercontent.com/yyun8822/limitless-space/main/images/tee-black.jpeg",
+      "Sky Blue": "https://raw.githubusercontent.com/yyun8822/limitless-space/main/images/tee-black.jpeg",
       "White": "https://raw.githubusercontent.com/yyun8822/limitless-space/main/images/tee-white.jpeg"
     },
-    "colors": ["Black", "sky blue", "White"],
+    "colors": ["Black", "Sky Blue", "White"],
     "sizes": ["S", "M", "L", "XL"]
   },
   {
