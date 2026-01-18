@@ -1,75 +1,64 @@
-let products=[],cart=[],currentCategory="All";
-const colorMap={Black:"#000",White:"#fff",Grey:"#aaa",Green:"#4f7f52"};
+let products = [];
+let cart = [];
+let currentCategory = "All";
 
-fetch("products.json").then(r=>r.json()).then(d=>{
-  products=d;loadCart();renderProducts();
-});
+fetch("products.json")
+  .then(res => res.json())
+  .then(data => {
+    products = data;
+    cart = JSON.parse(localStorage.getItem("cart")) || [];
+    renderProducts();
+    updateCartCount();
+  });
 
-function toggleMenu(){
-  menu.classList.toggle("show");
-  overlay.classList.toggle("show");
+function openMenu() {
+  menu.classList.add("show");
+  overlay.classList.add("show");
 }
 
-function setCategory(c){
-  currentCategory=c;
-  document.querySelectorAll(".cat-btn").forEach(b=>b.classList.toggle("active",b.innerText===c));
+function closeMenu() {
+  menu.classList.remove("show");
+  overlay.classList.remove("show");
+}
+
+function setCategory(cat) {
+  currentCategory = cat;
   renderProducts();
 }
 
-function renderProducts(){
-  productList.innerHTML="";
-  const s=searchInput.value.toLowerCase();
+function renderProducts() {
+  const list = document.getElementById("productList");
+  list.innerHTML = "";
 
-  products.filter(p=>
-    (currentCategory==="All"||p.category===currentCategory)&&
-    p.name_en.toLowerCase().includes(s)
-  ).forEach(p=>{
-    let currentImg=p.images[p.colors[0]];
+  products
+    .filter(p => currentCategory === "All" || p.category === currentCategory)
+    .forEach(p => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.onclick = () => location.href = `product-detail.html?id=${p.id}`;
 
-    const card=document.createElement("div");
-    card.className="card";
-    card.onclick=()=>location.href=`product-detail.html?id=${p.id}`;
-
-    const img=document.createElement("img");
-    img.src=currentImg;
-
-    const colors=document.createElement("div");
-    colors.className="color-row";
-    p.colors.forEach(c=>{
-      const d=document.createElement("span");
-      d.className="color-dot";
-      d.style.background=colorMap[c]||"#ccc";
-      d.onclick=e=>{
-        e.stopPropagation();
-        img.src=p.images[c];
-      };
-      colors.appendChild(d);
+      card.innerHTML = `
+        <img id="img-${p.id}" src="${p.images[p.colors[0]]}">
+        <h3>${p.name_en}</h3>
+        <p>RM ${p.price}</p>
+        <div class="color-row">
+          ${p.colors.map(c => `
+            <div class="color-dot"
+              style="background:${c}"
+              onclick="event.stopPropagation();switchImg(${p.id},'${c}')">
+            </div>`).join("")}
+        </div>
+      `;
+      list.appendChild(card);
     });
-
-    card.append(img,colors,document.createTextNode(p.name_en+" RM "+p.price));
-    productList.appendChild(card);
-  });
-
-  updateCartCount();
 }
 
-/* Cart */
-function toggleCart(){cartBox.classList.toggle("show");renderCart()}
-function renderCart(){
-  cartItems.innerHTML="";
-  let t=0;
-  cart.forEach(i=>{
-    t+=i.price*i.qty;
-    cartItems.innerHTML+=`
-      <div class="cart-item">
-        <img src="${i.image}">
-        <div>${i.name_en} x ${i.qty}</div>
-      </div>`;
-  });
-  cartTotal.innerText="RM "+t;
+function switchImg(id, color) {
+  const p = products.find(x => x.id === id);
+  document.getElementById(`img-${id}`).src = p.images[color];
 }
-function saveCart(){localStorage.setItem("cart",JSON.stringify(cart))}
-function loadCart(){cart=JSON.parse(localStorage.getItem("cart")||"[]")}
-function updateCartCount(){
-  cartCount.innerText=cart.reduce((s,i)=>s+i.qty,0);
+
+function updateCartCount() {
+  document.getElementById("cartCount").innerText =
+    cart.reduce((s,i)=>s+i.qty,0);
 }
